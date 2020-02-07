@@ -15,13 +15,7 @@
 
 using namespace MMG;
 
+int GameBoard::nb_instances = 0;
+int GameBoard::nb_turns = 0;
 
-GameBoard::GameBoard() {
-}
-
-GameBoard::GameBoard(const GameBoard& orig) {
-}
-
-GameBoard::~GameBoard() {
-}
 

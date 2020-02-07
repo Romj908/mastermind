@@ -16,20 +16,42 @@
 
 #include <vector>
 #include <memory>
+#include <bits/stl_vector.h>
 
 using namespace std;
 
+#include "mmCodes.h"
+
+//-----------------------------------------------------------------------------
+namespace MMG // Master Mind Game domain name
+{
+//class GameBoard;
 
 class GameBoard
 {
 public:
-  GameBoard (int nb_colors, int nb_turns, int code_lenght);
-  GameBoard (const GameBoard& orig);
-  virtual ~GameBoard ();
+  GameBoard() {}
+  GameBoard (int nb_colors, int nb_turns, int code_lenght)
+  {
+    assert(nb_instances == 0);
+    nb_instances +=1;
+    ColorCode::setDifficulty(code_lenght,nb_colors);
+    up_codes.reset(new vector<ColorCode>(nb_turns));
+  }
+  virtual ~GameBoard () {nb_instances -=1; };
+  
 private:
-  vector<Code> toto;
-
+  unique_ptr<vector<ColorCode>> up_codes{};
+  unique_ptr<vector<Verdict>>   up_verdicts{};
+  
+public:
+  static int nbTurns() {return nb_turns;}
+  
+private:
+  static int nb_instances;
+  static int nb_turns;
 };
 }
+
 #endif /* MMGBOARD_H */
 
