@@ -41,8 +41,7 @@ noexcept
             cout << colorName[i] << " ";
         };
     }
-    cout.flush();
-    //cout << "\n";
+    cout << "\n";
 
     assert(code_lenght >= 4);
     if (code_lenght > MM_SECRETCODE_MAX_LENGHT)
@@ -98,6 +97,67 @@ ColorCode & ColorCode::operator=(ColorCode&& orig)
     ColorCode::nb_instances += 1;
 }
 
+#ifdef MMG_DISPL_LETTERS
+static string *input_up_string(void)
+{
+    string *p_str = new string;
+    for (char c; cin >> c && c> 0; )
+    {
+        cout.flush();
+        p_str->push_back(c);
+        if (p_str->length() >= ColorCode::lenght())
+            break;
+        
+    }
+    for (auto& it: *p_str)
+    {
+        it = ::toupper(it);
+    }
+    return p_str;
+}
+
+
+unique_ptr<string>&& read_code_string(void)
+{
+    unique_ptr<string> up_str{};
+    do 
+    {
+        up_str.reset(input_up_string()) ;
+        
+        //cout << endl << *up_str << endl;
+        string &the_str = *up_str;
+        if (the_str.length() < ColorCode::lenght())
+        {
+            cout << endl <<the_str << endl;
+            cout << "incorrect number of letters"<< endl;
+            continue;
+        }
+        for (auto c: the_str)
+        {
+            if (!(c >= 'A' && c < ('A'+ColorCode::lenght())))
+            {
+                cout << "bad character " << c << "!\n";
+                continue;
+            }
+        }
+        cout << "code is OK" << endl;
+    } while (0);
+    return std::move(up_str);
+}
+void ColorCode::update(const string &str)
+{
+    auto& vect = *up;
+    int i = 0;
+    for (auto c: str)
+    {
+        int v = c - 'A'; // translate the string value in color 
+        assert(v > 0 && v < lenght());
+        vect[i++] = static_cast<Color>(v);
+    }
+}
+
+#endif
+
 ostream& operator<<(ostream& co, const ColorCode& cc)
 {
     if (!cc.valid())
@@ -108,9 +168,9 @@ ostream& operator<<(ostream& co, const ColorCode& cc)
     {
         assert(c < ColorCode::limit());
         if (c != Color::None)
-            co << colorName[c] << "(" << static_cast<int> (c) << ") ";
+            co << colorName[c];
         else
-            co << "----- ";
+            co << "*";
 
     }
     co.flush();

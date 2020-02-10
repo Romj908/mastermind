@@ -16,10 +16,10 @@
 
 #include <vector>
 #include <memory>
+#include <regex>
 #include <cassert>
 #include <iostream>
 using namespace std;
-
 
 //-----------------------------------------------------------------------------
 namespace MMG // Master Mind Game domain name
@@ -35,12 +35,20 @@ enum Color : char
   NbColors
 };
 
+#define MMG_DISPL_LETTERS
+#ifdef MMG_DISPL_LETTERS
+const vector<string> colorName {
+  [Red]="A", [Green]="B", [Blue]="C", [Yellow]="D", 
+  [Braun]="E", [Orange]="F", [Gray]="G", [Rose]="H",
+  [LightGreen]="I", [LightBlue]="J", 
+  [LightGray]="K", [LightBraun]="L"};
+#else
 const vector<string> colorName {
   [Red]="RD", [Green]="GN", [Blue]="BU", [Yellow]="YW", 
   [Braun]="BR", [Orange]="OE", [Gray]="GY", [Rose]="RO",
   [LightGreen]="LG", [LightBlue]="LU", 
   [LightGray]="LY", [LightBraun]="LN"};
-
+#endif
 /**
  */
 enum class Indic : unsigned int
@@ -51,7 +59,7 @@ enum class Indic : unsigned int
 };
 
 const vector<string> indicName {
-  [Indic::None]=".", [Indic::Black]="B", [Indic::White]="W"
+  [Indic::None]="-", [Indic::Black]="B", [Indic::White]="W"
 };
 
 //-----------------------------------------------------------------------------
@@ -73,6 +81,9 @@ public:
 
   ColorCode & operator= (const ColorCode& orig); // copy assignment
   ColorCode & operator= (ColorCode&& orig); // move assignment
+  
+  void update(const string &str);
+  
   
   Color & operator[] (int i)
   {
@@ -130,6 +141,15 @@ public:
 
 ostream& operator<< (ostream& co, const ColorCode& cc);
 
+#ifdef MMG_DISPL_LETTERS
+/* 
+ * default (alphanumerical) input of a code by the user.
+ * 
+ */
+unique_ptr<string>&& read_code_string(void);
+
+
+#endif
 
 //-----------------------------------------------------------------------------
 class Verdict
