@@ -22,6 +22,7 @@
  * Created on February 6, 2020, 3:17 PM
  */
 
+#include <chrono>     // take random seed from current system time.
 #include <random>
 #include <functional> // for std::bind()
 
@@ -85,10 +86,12 @@ int  GameBoard::enter_secret_code(void)
 
 int  GameBoard::rdm_secret_code(void)
 {
-    using my_engine=default_random_engine;
-    my_engine rdm_eng {};
-    using my_distribution=uniform_int_distribution<>;
-    my_distribution rdm_distr {0, ColorCode::nb_colors()-1};
+    // obtain a seed from the system clock:
+    unsigned seed1 = chrono::system_clock::now().time_since_epoch().count();
+    
+    default_random_engine rdm_eng {seed1};
+    
+    uniform_int_distribution<> rdm_distr {0, ColorCode::nb_colors()-1};
     
     // bind() makes a function object based on the first param (a function or 
     // function object), called with second param as parameter.
@@ -100,7 +103,6 @@ int  GameBoard::rdm_secret_code(void)
     {
         ccode[i] = static_cast<Color>(rdm_color());
     }
-    cout << "\nSecret:" << ccode;
     // scroll down to hide the secret code...
     return 0;
 }

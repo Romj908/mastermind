@@ -174,7 +174,7 @@ void ColorCode::update(const string &str)
     for (auto c: str)
     {
         int v = c - 'A'; // translate the string value in color 
-        assert(v >=0 && v < lenght());
+        assert(v >=0 && v < this->nb_colors());
         vect[i++] = static_cast<Color>(v);
     }
 }
