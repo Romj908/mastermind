@@ -22,12 +22,30 @@
  * Created on February 6, 2020, 3:17 PM
  */
 
+#include <random>
+#include <functional> // for std::bind()
+
 #include "mmBoard.h"
 
 using namespace MMG;
 
 int GameBoard::nb_instances = 0;
 int GameBoard::nb_turns = 0;
+
+GameBoard::GameBoard (int nb_colors, 
+                      int code_lenght, 
+                      int turns, 
+                      bool random)
+        : randomize_code{random}
+{
+  assert(nb_instances == 0);
+  nb_instances +=1;
+  nb_turns = turns;
+  ColorCode::setDifficulty(code_lenght,nb_colors);
+  up_codes.reset(new vector<ColorCode>(turns));
+  up_verdicts.reset(new vector<Verdict>(turns));
+  up_secret_code.reset(new ColorCode{});
+}
 
 
 void GameBoard::display(bool secret_code)
@@ -50,7 +68,7 @@ void GameBoard::display(bool secret_code)
     
 }
 
-int  GameBoard::set_new_secret_code(void)
+int  GameBoard::enter_secret_code(void)
 {
     cout << endl << "Please enter the new secret code" << endl;
     unique_ptr<string> up_str {MMG::read_code_string()};
@@ -62,6 +80,28 @@ int  GameBoard::set_new_secret_code(void)
     // scroll down to hide the secret code...
     for (int line = 0; line<100; line++)
         cout << endl;
+    return 0;
+}
+
+int  GameBoard::rdm_secret_code(void)
+{
+    using my_engine=default_random_engine;
+    my_engine rdm_eng {};
+    using my_distribution=uniform_int_distribution<>;
+    my_distribution rdm_distr {0, ColorCode::nb_colors()-1};
+    
+    // bind() makes a function object based on the first param (a function or 
+    // function object), called with second param as parameter.
+    auto rdm_color = std::bind(rdm_distr, rdm_eng);
+    
+    ColorCode& ccode  = *up_secret_code;
+    
+    for (int i=0; i < ColorCode::lenght(); i++)
+    {
+        ccode[i] = static_cast<Color>(rdm_color());
+    }
+    cout << "\nSecret:" << ccode;
+    // scroll down to hide the secret code...
     return 0;
 }
 
@@ -124,24 +164,30 @@ bool GameBoard::player_turn(int t)
     auto& verdicts = *up_verdicts; // dereferencing the unique_ptr
     Verdict& verdict = verdicts[t];  // retrieving the color code for that turn
     return try_this_code(ccode, verdict);
-    
 }
 
 int GameBoard::player_turns(void)
 {
+    bool success;
     auto& codes = *up_codes;
     auto& verdicts = *up_verdicts;
     
     for (int t = 0; t < nb_turns; t++)
     {
         this->display(false);
-        bool success = player_turn(t);
+        success = player_turn(t);
         if (success)
         {
-            cout << endl << "You won! :)" << endl;
-            return true;
+            break;
         }
     }
-    cout << endl << "You have lost, sorry."<< endl;
-    return false;
+    // end of game.
+    this->display(true);
+    
+    if (success)
+        cout << endl << "You won! :)" << endl;
+    else
+        cout << endl << "You have lost, sorry."<< endl;
+    
+    return success;
 }

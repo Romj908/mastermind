@@ -135,7 +135,7 @@ public:
   }
 
   static Color
-  limit (void)
+  nb_colors (void)
   {
     return color_limit;
   }

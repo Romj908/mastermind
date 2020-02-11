@@ -42,30 +42,30 @@ class GameBoard
 {
 public:
   GameBoard() {}
-  GameBoard (int nb_colors, int code_lenght, int turns) 
-  {
-    assert(nb_instances == 0);
-    nb_instances +=1;
-    nb_turns = turns;
-    ColorCode::setDifficulty(code_lenght,nb_colors);
-    up_codes.reset(new vector<ColorCode>(turns));
-    up_verdicts.reset(new vector<Verdict>(turns));
-    up_secret_code.reset(new ColorCode{});
-    current_turn = 0;
-  }
+  GameBoard (int nb_colors, int code_lenght, int turns, bool random=true);
   virtual ~GameBoard () {nb_instances -=1; };
   
   virtual void display(bool secret_code);
-  virtual int set_new_secret_code();
+  
+  virtual int enter_secret_code();
+  int         rdm_secret_code(void);
+  
+  int set_secret_code(void)
+  {
+    return (randomize_code ?
+            rdm_secret_code() :
+            enter_secret_code());
+  }
+  
   bool try_this_code(const ColorCode& candidate, Verdict& verdict);
   virtual bool player_turn(int turn);
   virtual int player_turns(void);
   
 private:
-  unique_ptr<ColorCode> up_secret_code{};
+  unique_ptr<ColorCode>         up_secret_code{};
   unique_ptr<vector<ColorCode>> up_codes{};
   unique_ptr<vector<Verdict>>   up_verdicts{};
-  
+  bool                          randomize_code{};
   
 public:
   static int nbTurns() {return nb_turns;}
@@ -73,7 +73,6 @@ public:
 private:
   static int nb_instances;
   static int nb_turns;
-  int current_turn;
 };
 }
 

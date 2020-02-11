@@ -44,14 +44,14 @@ void game_session(void)
 int
 main(int argc, char** argv)
 {   
-    int nb_colors = 8; 
-    int code_lenght = 6;
+    int nb_colors = 6; 
+    int code_lenght = 5;
     int turns = 8;
     
     GameBoard game_board {nb_colors, code_lenght, turns };
     
     game_board.display(true);
-    game_board.set_new_secret_code();
+    game_board.set_secret_code();
     
     game_board.player_turns();
     

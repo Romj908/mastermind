@@ -102,9 +102,9 @@ ColorCode & ColorCode::operator=(ColorCode&& orig)
 #ifdef MMG_DISPL_LETTERS
 void print_allowed_colors(void)
 {
-        cout << ColorCode::lenght() << " couleurs possibles:\n";
+        cout << ColorCode::nb_colors() << " couleurs possibles: ";
         int i = (int) Color::None;
-        while (++i < ColorCode::lenght())
+        while (++i < ColorCode::nb_colors())
         {
             cout << colorName[i] << " ";
         };
@@ -156,7 +156,7 @@ unique_ptr<string> read_code_string(void)
         
         for (auto c: the_str)
         {
-            if (!(c >= 'A' && c < ('A'+ColorCode::lenght())))
+            if (!(c >= 'A' && c < ('A'+ColorCode::nb_colors())))
             {
                 cout << "bad character " << c << "!\n";
                 error = true;
@@ -189,7 +189,7 @@ ostream& operator<<(ostream& co, const ColorCode& cc)
     const vector<Color>& thevect = cc.theVect();
     for (auto c : thevect)
     {
-        assert(c < ColorCode::limit());
+        assert(c < ColorCode::nb_colors());
         if (c != Color::None)
             co << colorName[c];
         else
