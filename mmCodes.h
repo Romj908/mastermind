@@ -59,7 +59,7 @@ enum class Indic : unsigned int
 };
 
 const vector<string> indicName {
-  [Indic::None]="-", [Indic::Black]="B", [Indic::White]="W"
+  [Indic::None]="-", [Indic::Black]="*", [Indic::White]="0"
 };
 
 //-----------------------------------------------------------------------------
@@ -146,7 +146,7 @@ ostream& operator<< (ostream& co, const ColorCode& cc);
  * default (alphanumerical) input of a code by the user.
  * 
  */
-unique_ptr<string>&& read_code_string(void);
+unique_ptr<string> read_code_string(void);
 
 
 #endif

@@ -11,6 +11,7 @@
  * Created on February 6, 2020, 4:42 PM
  */
 #include <cassert>
+#include <array>
 #include <iostream>
 
 #include "mmCodes.h"
@@ -101,14 +102,26 @@ ColorCode & ColorCode::operator=(ColorCode&& orig)
 static string *input_up_string(void)
 {
     string *p_str = new string;
+    cout << "   "; // kind of tabulation
+    // nota: the term 'cin >> c' returns only when a carriage return is entered.
+    // c==0 means EOF (obtained here with a Ctrl-D). There is then one loop for
+    // every character still available in the stream buffer.
     for (char c; cin >> c && c> 0; )
     {
-        cout.flush();
+        //cout << c; cout.flush();
         p_str->push_back(c);
         if (p_str->length() >= ColorCode::lenght())
+        {
+            // flush the rest (if user entered too much characters)
+//            using TMPBUFF = std::array<char,1024>;
+//            unique_ptr<TMPBUFF> buffer{new TMPBUFF};
+//            cout << buffer.get()->size();
+            std::array<char,1024> buffer;
+            cin.getline(buffer.data(),buffer.size()); // flush
             break;
-        
+        }
     }
+    // converts to uppercase
     for (auto& it: *p_str)
     {
         it = ::toupper(it);
@@ -117,32 +130,30 @@ static string *input_up_string(void)
 }
 
 
-unique_ptr<string>&& read_code_string(void)
+unique_ptr<string> read_code_string(void)
 {
+    bool error;
     unique_ptr<string> up_str{};
     do 
     {
-        up_str.reset(input_up_string()) ;
+        error = false;
         
-        //cout << endl << *up_str << endl;
+        up_str.reset(input_up_string()) ;
         string &the_str = *up_str;
-        if (the_str.length() < ColorCode::lenght())
-        {
-            cout << endl <<the_str << endl;
-            cout << "incorrect number of letters"<< endl;
-            continue;
-        }
+        assert(the_str.length() <= ColorCode::lenght());
+        
         for (auto c: the_str)
         {
             if (!(c >= 'A' && c < ('A'+ColorCode::lenght())))
             {
                 cout << "bad character " << c << "!\n";
-                continue;
+                error = true;
+                break; // exit the for : stop the scan and read new code
             }
         }
-        cout << "code is OK" << endl;
-    } while (0);
-    return std::move(up_str);
+    } while (error);
+    
+    return up_str;
 }
 void ColorCode::update(const string &str)
 {
@@ -151,7 +162,7 @@ void ColorCode::update(const string &str)
     for (auto c: str)
     {
         int v = c - 'A'; // translate the string value in color 
-        assert(v > 0 && v < lenght());
+        assert(v >=0 && v < lenght());
         vect[i++] = static_cast<Color>(v);
     }
 }

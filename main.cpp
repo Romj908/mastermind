@@ -42,6 +42,7 @@ main(int argc, char** argv)
     game_board.display(true);
     game_board.set_new_secret_code();
     
+    game_board.player_turns();
     
     
 #ifdef MMG_DISPL_LETTERS

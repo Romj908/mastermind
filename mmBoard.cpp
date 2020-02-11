@@ -43,12 +43,11 @@ int  GameBoard::set_new_secret_code(void)
 {
     cout << endl << "Please enter the new secret code" << endl;
     unique_ptr<string> up_str {MMG::read_code_string()};
-    cout << " after read_code_string" << endl;
     auto& the_str = *up_str;
     
     ColorCode& ccode  = *up_secret_code;
     ccode.update(the_str);
-    cout << "\n secret:" << ccode;
+    //cout << "\nSecret:" << ccode;
     return 0;
 }
 
@@ -60,6 +59,7 @@ int GameBoard::player_turn(int t)
     auto& ccode_vect = *up_codes; // dereferencing the unique_ptr
     ColorCode& ccode = ccode_vect[t];  // retrieving the color code for that turn
     ccode.update(the_str);
+    
     
     return 0;
 }
