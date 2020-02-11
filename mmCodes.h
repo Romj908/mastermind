@@ -137,6 +137,7 @@ public:
 
   static bool setDifficulty (int code_lenght, int nb_colours) noexcept;
   
+  
 };
 
 ostream& operator<< (ostream& co, const ColorCode& cc);
@@ -148,6 +149,7 @@ ostream& operator<< (ostream& co, const ColorCode& cc);
  */
 unique_ptr<string> read_code_string(void);
 
+void print_allowed_colors(void);
 
 #endif
 

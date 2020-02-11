@@ -46,7 +46,8 @@ public:
   
   virtual void display(bool secret_code);
   virtual int set_new_secret_code();
-  virtual int player_turn(int turn);
+  bool try_this_code(const ColorCode& candidate, Verdict& verdict);
+  virtual bool player_turn(int turn);
   virtual int player_turns(void);
   
 private:

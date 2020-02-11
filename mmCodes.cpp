@@ -34,16 +34,6 @@ noexcept
     assert(n_colors >= 4);
     ColorCode::color_limit = static_cast<Color> (n_colors);
 
-    {
-        cout << n_colors << " couleurs possibles:\n";
-        int i = (int) Color::None;
-        while (++i < n_colors)
-        {
-            cout << colorName[i] << " ";
-        };
-    }
-    cout << "\n";
-
     assert(code_lenght >= 4);
     if (code_lenght > MM_SECRETCODE_MAX_LENGHT)
         code_lenght = MM_SECRETCODE_MAX_LENGHT;
@@ -99,6 +89,17 @@ ColorCode & ColorCode::operator=(ColorCode&& orig)
 }
 
 #ifdef MMG_DISPL_LETTERS
+void print_allowed_colors(void)
+{
+        cout << ColorCode::lenght() << " couleurs possibles:\n";
+        int i = (int) Color::None;
+        while (++i < ColorCode::lenght())
+        {
+            cout << colorName[i] << " ";
+        };
+    cout << "\n";
+}
+
 static string *input_up_string(void)
 {
     string *p_str = new string;
