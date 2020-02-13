@@ -23,18 +23,35 @@
  */
 
 #include <cstdlib>
+#include <exception>
 #include "mmCodes.h"
 #include "mmBoard.h"
 
 using namespace std;
 using namespace MMG;
 
-#ifdef MMG_DISPL_LETTERS
+class MyException : public exception
+{
+public:
+    const char* what() const noexcept {return "TOTO!!";};
+};
+
 void game_session(void)
 {
+    int nb_colors = 6; 
+    int code_lenght = 5;
+    int turns = 8;
+    
+    
+    GameBoard game_board {nb_colors, code_lenght, turns };
+    
+    game_board.display(true);
+    game_board.set_secret_code();
+    game_board.player_turns();
     
 }
 
+#ifdef MMG_DISPL_LETTERS
 #endif
 
 
@@ -44,17 +61,22 @@ void game_session(void)
 int
 main(int argc, char** argv)
 {   
-    int nb_colors = 6; 
-    int code_lenght = 5;
-    int turns = 8;
-    
-    GameBoard game_board {nb_colors, code_lenght, turns };
-    
-    game_board.display(true);
-    game_board.set_secret_code();
-    
-    game_board.player_turns();
-    
+    try
+    {
+        while (1)
+        {
+            game_session();
+        }
+    }
+    catch(MyException me)
+    {
+        cout << "My exception catch : " << me.what();
+    }
+    catch (std::exception& e)
+    {
+        // some of the STD facilities may trow an exception of that base class.
+        cout << "STL exception catch : " << e.what();
+    }
     
 #ifdef MMG_DISPL_LETTERS
     

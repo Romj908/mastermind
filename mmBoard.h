@@ -43,7 +43,7 @@ class GameBoard
 public:
   GameBoard() {}
   GameBoard (int nb_colors, int code_lenght, int turns, bool random=true);
-  virtual ~GameBoard () {nb_instances -=1; };
+  virtual ~GameBoard () {nb_instances -=1; cout << "\ngameboard deleted\n";};
   
   virtual void display(bool secret_code);
   
