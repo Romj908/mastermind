@@ -43,13 +43,15 @@ class GameBoard
 public:
   GameBoard() {}
   GameBoard (int nb_colors, int code_lenght, int turns, bool random=true);
-  virtual ~GameBoard () {nb_instances -=1; cout << "\ngameboard deleted\n";};
+  virtual ~GameBoard () {nb_instances -=1; };
   
-  virtual void display(bool secret_code);
+  // implementation dependant (console or Qt)
+  virtual void display(bool secret_code) = 0;
+  virtual int enter_secret_code() = 0; // read user's input in some way.
+  virtual int enter_user_attempt(int t) = 0; // read user's input in some way.
   
-  virtual int enter_secret_code();
-  int         rdm_secret_code(void);
-  
+private:
+  int rdm_secret_code(void);
   int set_secret_code(void)
   {
     return (randomize_code ?
@@ -57,17 +59,16 @@ public:
             enter_secret_code());
   }
   
+public:
   bool try_this_code(const ColorCode& candidate, Verdict& verdict);
   virtual bool player_turn(int turn);
   virtual int player_turns(void);
   
-private:
+protected:
   unique_ptr<ColorCode>         up_secret_code{};
   unique_ptr<vector<ColorCode>> up_codes{};
   unique_ptr<vector<Verdict>>   up_verdicts{};
   bool                          randomize_code{};
-  
-public:
   static int nbTurns() {return nb_turns;}
   
 private:

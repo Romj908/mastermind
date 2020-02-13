@@ -49,40 +49,6 @@ GameBoard::GameBoard (int nb_colors,
 }
 
 
-void GameBoard::display(bool secret_code)
-{
-    const auto& codes = *up_codes;
-    const auto& verdicts = *up_verdicts;
-    
-    cout << endl;
-    
-    for (int t = 0; t < nb_turns; t++)
-    {
-        cout << t << "  " << codes[t] << "  " << verdicts[t] << endl;
-    }
-    if (secret_code)
-    {
-        auto &scode = *up_secret_code;
-        cout << "\n\nS  ";
-        cout << scode << endl;
-    }
-    
-}
-
-int  GameBoard::enter_secret_code(void)
-{
-    cout << endl << "Please enter the new secret code" << endl;
-    unique_ptr<string> up_str {MMG::read_code_string()};
-    auto& the_str = *up_str;
-    
-    ColorCode& ccode  = *up_secret_code;
-    ccode.update(the_str);
-    //cout << "\nSecret:" << ccode;
-    // scroll down to hide the secret code...
-    for (int line = 0; line<100; line++)
-        cout << endl;
-    return 0;
-}
 
 int  GameBoard::rdm_secret_code(void)
 {
@@ -155,16 +121,12 @@ GameBoard::try_this_code(const ColorCode& candidate, Verdict& verdict)
 }
 bool GameBoard::player_turn(int t)
 {
-    cout << endl << "Please enter your candidate code" << endl;
-    print_allowed_colors();
-    unique_ptr<string> up_str {read_code_string()};
-    string &the_str = *up_str; // dereferencing the unique_ptr
-    auto& ccodes = *up_codes; // dereferencing the unique_ptr
-    ColorCode& ccode = ccodes[t];  // retrieving the color code for that turn
-    ccode.update(the_str);
-
+    enter_user_attempt(t);
+    
     auto& verdicts = *up_verdicts; // dereferencing the unique_ptr
     Verdict& verdict = verdicts[t];  // retrieving the color code for that turn
+    auto& ccodes = *up_codes; // dereferencing the unique_ptr
+    ColorCode& ccode = ccodes[t];  // retrieving the color code for that turn
     return try_this_code(ccode, verdict);
 }
 
@@ -173,6 +135,8 @@ int GameBoard::player_turns(void)
     bool success;
     auto& codes = *up_codes;
     auto& verdicts = *up_verdicts;
+    
+    set_secret_code();
     
     for (int t = 0; t < nb_turns; t++)
     {

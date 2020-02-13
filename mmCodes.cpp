@@ -167,17 +167,6 @@ unique_ptr<string> read_code_string(void)
     
     return up_str;
 }
-void ColorCode::update(const string &str)
-{
-    auto& vect = *up;
-    int i = 0;
-    for (auto c: str)
-    {
-        int v = c - 'A'; // translate the string value in color 
-        assert(v >=0 && v < this->nb_colors());
-        vect[i++] = static_cast<Color>(v);
-    }
-}
 
 #endif
 

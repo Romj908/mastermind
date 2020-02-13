@@ -92,9 +92,7 @@ public:
 
   ColorCode & operator= (const ColorCode& orig); // copy assignment
   ColorCode & operator= (ColorCode&& orig); // move assignment
-  
-  void update(const string &str);
-  
+    
   
   Color & operator[] (int i)
   {
@@ -151,8 +149,6 @@ public:
   
 };
 
-ostream& operator<< (ostream& co, const ColorCode& cc);
-
 #ifdef MMG_DISPL_LETTERS
 /* 
  * default (alphanumerical) input of a code by the user.
@@ -161,6 +157,8 @@ ostream& operator<< (ostream& co, const ColorCode& cc);
 unique_ptr<string> read_code_string(void);
 
 void print_allowed_colors(void);
+
+ostream& operator<< (ostream& co, const ColorCode& cc);
 
 #endif
 
