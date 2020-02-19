@@ -30,6 +30,25 @@
 
 namespace MMG // Master Mind Game domain name
 {
+#define MMG_DISPL_LETTERS
+#ifdef MMG_DISPL_LETTERS
+const vector<string> colorName {
+  [Red]="A", [Green]="B", [Blue]="C", [Yellow]="D", 
+  [Braun]="E", [Orange]="F", [Gray]="G", [Rose]="H",
+  [LightGreen]="I", [LightBlue]="J", 
+  [LightGray]="K", [LightBraun]="L"};
+#else
+const vector<string> colorName {
+  [Red]="RD", [Green]="GN", [Blue]="BU", [Yellow]="YW", 
+  [Braun]="BR", [Orange]="OE", [Gray]="GY", [Rose]="RO",
+  [LightGreen]="LG", [LightBlue]="LU", 
+  [LightGray]="LY", [LightBraun]="LN"};
+#endif
+  
+const vector<string> indicName {
+  [Indic::None]="-", [Indic::Black]="*", [Indic::White]="0"
+};
+
 
 // ConsoleGameBoard : IO are on stdio (console)
 
@@ -43,14 +62,31 @@ public:
   
   virtual ~ConsoleGameBoard () {cout << "\nConsoleGameBoard deleted\n";};
 
+  // definition of pure virtual methods 
   void  display (bool secret_code) override;
+  void  final_message(bool success) override;
   int   enter_secret_code(void) override;
   int   enter_user_attempt(int t) override;
 
+#ifdef MMG_DISPL_LETTERS
 private:
   void str_to_code (MMG::ColorCode &ccode, const string &str);
-
+#endif
 };
+
+/* 
+ * default (alphanumerical) input of a code by the user.
+ * 
+ */
+unique_ptr<string> read_code_string(void);
+
+void print_allowed_colors(void);
+
+ostream& operator<< (ostream& co, const ColorCode& cc);
+ostream& operator<< (ostream& co, const Verdict& cc);
+ostream& operator<< (ostream& co, const Indic& cc);
+
+
 } // MMG
 
 #endif /* CONSOLEGAMEBOARD_H */

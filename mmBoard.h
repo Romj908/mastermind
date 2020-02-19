@@ -49,6 +49,7 @@ public:
   virtual void display(bool secret_code) = 0;
   virtual int enter_secret_code() = 0; // read user's input in some way.
   virtual int enter_user_attempt(int t) = 0; // read user's input in some way.
+  virtual void final_message(bool success) = 0; // victory/defeat message
   
 private:
   int rdm_secret_code(void);

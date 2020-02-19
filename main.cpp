@@ -28,7 +28,7 @@
 //#include "mmBoard.h"
 #include "ConsoleGameBoard.h"
 using namespace std;
-using namespace MMG;
+using namespace MMG;;
 
 class MyException : public exception
 {
@@ -49,9 +49,6 @@ void game_session(void)
     game_board.player_turns();
     
 }
-
-#ifdef MMG_DISPL_LETTERS
-#endif
 
 
 /*

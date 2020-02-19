@@ -150,10 +150,7 @@ int GameBoard::player_turns(void)
     // end of game.
     this->display(true);
     
-    if (success)
-        cout << endl << "You won! :)" << endl;
-    else
-        cout << endl << "You have lost, sorry."<< endl;
+    final_message(success);
     
     return success;
 }

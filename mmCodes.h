@@ -46,20 +46,6 @@ enum Color : char
   NbColors
 };
 
-#define MMG_DISPL_LETTERS
-#ifdef MMG_DISPL_LETTERS
-const vector<string> colorName {
-  [Red]="A", [Green]="B", [Blue]="C", [Yellow]="D", 
-  [Braun]="E", [Orange]="F", [Gray]="G", [Rose]="H",
-  [LightGreen]="I", [LightBlue]="J", 
-  [LightGray]="K", [LightBraun]="L"};
-#else
-const vector<string> colorName {
-  [Red]="RD", [Green]="GN", [Blue]="BU", [Yellow]="YW", 
-  [Braun]="BR", [Orange]="OE", [Gray]="GY", [Rose]="RO",
-  [LightGreen]="LG", [LightBlue]="LU", 
-  [LightGray]="LY", [LightBraun]="LN"};
-#endif
 /**
  */
 enum class Indic : unsigned int
@@ -67,10 +53,6 @@ enum class Indic : unsigned int
   None = 0,
   Black = 1, // one color correctly placed
   White = 2 // one color badly placed
-};
-
-const vector<string> indicName {
-  [Indic::None]="-", [Indic::Black]="*", [Indic::White]="0"
 };
 
 //-----------------------------------------------------------------------------
@@ -149,19 +131,6 @@ public:
   
 };
 
-#ifdef MMG_DISPL_LETTERS
-/* 
- * default (alphanumerical) input of a code by the user.
- * 
- */
-unique_ptr<string> read_code_string(void);
-
-void print_allowed_colors(void);
-
-ostream& operator<< (ostream& co, const ColorCode& cc);
-
-#endif
-
 //-----------------------------------------------------------------------------
 class Verdict
 {
@@ -188,8 +157,6 @@ public:
 private:
   unique_ptr<vector<Indic>> up;
 };
-ostream& operator<< (ostream& co, const Verdict& cc);
-ostream& operator<< (ostream& co, const Indic& cc);
 
 
 } // MMG
