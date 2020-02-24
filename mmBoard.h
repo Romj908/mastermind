@@ -65,17 +65,29 @@ public:
   virtual bool player_turn(int turn);
   virtual int player_turns(void);
   
+  const ColorCode&
+  getCode(int i) const;
+  
+  const Verdict&
+  getVerdict(int i) const;
+  
+  const ColorCode&
+  getSecretCode() const;
+  
+  static int nbTurns() {return nb_turns;}
+  
 protected:
   unique_ptr<ColorCode>         up_secret_code{};
   unique_ptr<vector<ColorCode>> up_codes{};
   unique_ptr<vector<Verdict>>   up_verdicts{};
   bool                          randomize_code{};
-  static int nbTurns() {return nb_turns;}
   
 private:
   static int nb_instances;
   static int nb_turns;
 };
+
+using GameBoardPtr = typename std::shared_ptr<GameBoard>;
 }
 
 #endif /* MMGBOARD_H */

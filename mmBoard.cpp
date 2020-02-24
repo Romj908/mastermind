@@ -48,6 +48,22 @@ GameBoard::GameBoard (int nb_colors,
   up_secret_code.reset(new ColorCode{});
 }
 
+  const ColorCode&
+  GameBoard::getCode(int i) const
+  {
+      return (*up_codes).at(i);
+  }
+  
+  const Verdict&
+  GameBoard::getVerdict(int i) const
+  {
+      return (*up_verdicts).at(i);
+  }
+  const ColorCode&
+  GameBoard::getSecretCode() const
+  {
+      return *up_secret_code;
+  }
 
 
 int  GameBoard::rdm_secret_code(void)

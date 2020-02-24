@@ -31,7 +31,7 @@ using namespace std;
 namespace MMG // Master Mind Game domain name
 {
 uint ColorCode::code_lenght = 0;
-int ColorCode::nb_instances = 0;
+int  ColorCode::nb_instances = 0;
 Color ColorCode::color_limit = Color::NbColors;
 
 bool ColorCode::setDifficulty(int code_lenght, int n_colors)
@@ -99,5 +99,14 @@ ColorCode & ColorCode::operator=(ColorCode&& orig)
     ColorCode::nb_instances += 1;
 }
 
+//Verdict::Verdict (const Verdict& orig)
+//{
+//    
+//}
+//
+//Verdict::Verdict (Verdict&& orig)
+//{
+//    
+//}
 
 } // MMG

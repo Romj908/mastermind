@@ -27,6 +27,10 @@
 #include "mmCodes.h"
 //#include "mmBoard.h"
 #include "ConsoleGameBoard.h"
+#include "BoardComposerA.h"
+#include "PenVersionGlyphes.h"
+#include "PVGlyphFactory.h"
+
 using namespace std;
 using namespace MMG;;
 
@@ -42,11 +46,21 @@ void game_session(void)
     int code_lenght = 5;
     int turns = 8;
     
-    
     ConsoleGameBoard game_board {nb_colors, code_lenght, turns };
     
-    game_board.display(true);
-    game_board.player_turns();
+    GameBoardPtr    game_board_ptr { &game_board };
+    GlyphFactoryPtr pvgfactory { new PVGlyphFactory{} } ;
+    
+    BoardComposerAPtr board_composer {};
+    board_composer.reset( new BoardComposerA {game_board_ptr, pvgfactory} );
+    
+    BoardGameGlyphPtr board_game_glyphes_ptr = board_composer->build();
+    
+    Rect dummy_rect {0, 0, 1024, 758};
+    board_composer->compose(dummy_rect);
+    
+    game_board_ptr->display(true);
+    game_board_ptr->player_turns();
     
 }
 

@@ -59,7 +59,8 @@ enum class Indic : unsigned int
 class ColorCode // in the sense of combination
 {
 public:
-  ColorCode () : up{new vector<Color>(ColorCode::code_lenght, Color::None)}
+  ColorCode () 
+  : up{new vector<Color>(ColorCode::code_lenght, Color::None)}
   {
     ColorCode::nb_instances += 1;
   };
@@ -80,6 +81,12 @@ public:
   {
     return ref ((*up)[i]);
   };
+  
+  Color getColor (int i) const
+  {
+    return (*up)[i];
+  };
+  
   // check if the object is well defined (it could have been moved) 
   bool valid() const { return up.get () != nullptr;};
   
@@ -108,8 +115,9 @@ private:
 
 public:
 
+  /* static methods returning current game's preferences */
   static int
-  lenght ()
+  lenght (void)
   {
     return code_lenght;
   }
@@ -138,8 +146,11 @@ public:
   Verdict () : up{new vector<Indic>(ColorCode::lenght (), Indic::None)}
   {
   };
-  Verdict (const Verdict& orig); // copy ctor
-  Verdict (Verdict&& orig); // move dtor
+  
+  // move & copy constructor not required.
+  //Verdict (const Verdict& orig); // copy ctor
+  //Verdict (Verdict&& orig); // move ctor
+  
   virtual ~Verdict () {};
 
   // check if the object is well defined (it could have been moved) 
