@@ -34,7 +34,8 @@ namespace MMG
 class VerdictsAreaGlyph : public CompositeGlyph
 {
 public:
-    VerdictsAreaGlyph();
+    VerdictsAreaGlyph() = delete;
+    VerdictsAreaGlyph(int nb_turns);
     VerdictsAreaGlyph(const VerdictsAreaGlyph& orig) = delete;
     virtual ~VerdictsAreaGlyph();
 

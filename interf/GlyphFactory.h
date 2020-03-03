@@ -56,10 +56,10 @@ public:
     newBoardGameGlyph() const = 0;
     
     virtual ColorCodeAreaGlyphPtr 
-    newColorCodeAreaGlyph() const = 0;
+    newColorCodeAreaGlyph(int nb_turns) const = 0;
     
     virtual VerdictsAreaGlyphPtr 
-    newVerdictsAreaGlyph() const = 0;
+    newVerdictsAreaGlyph(int nb_turns) const = 0;
     
 private:
     static int nb_instances; 

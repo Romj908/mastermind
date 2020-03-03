@@ -74,6 +74,7 @@ PVBoardGameGlyph::drawSelf(Window *w ) const
 PVColorCodeGlyph::PVColorCodeGlyph(const ColorCode& ccode)
 :ColorCodeGlyph{ccode}
 {
+    assert(children.size() == ColorCode::lenght());
     for (int i=0; i < ColorCode::lenght(); i++)
     {
         Color color{ ccode.getColor(i) };
@@ -161,12 +162,33 @@ PVIndicatorGlyph::draw(Window *w ) const
     }
 }
 
+PVVerdictsAreaGlyph::PVVerdictsAreaGlyph(int nb_turns)
+: VerdictsAreaGlyph{nb_turns}
+{
+    
+}
+
+PVVerdictsAreaGlyph::~PVVerdictsAreaGlyph()
+{
+    
+}
+
 void
 PVVerdictsAreaGlyph::drawSelf(Window *w) const 
 {
 
 }
 
+PVColorCodeAreaGlyph::PVColorCodeAreaGlyph(int nb_turns)
+: ColorCodeAreaGlyph{nb_turns}
+{
+    
+}
+
+PVColorCodeAreaGlyph::~PVColorCodeAreaGlyph()
+{
+    
+}
 void
 PVColorCodeAreaGlyph::drawSelf(Window *w) const 
 {

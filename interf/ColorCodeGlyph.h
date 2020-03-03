@@ -47,17 +47,15 @@ public:
     {
     }
 
-    void
+    virtual void
     drawSelf(Window *w) const override;
 
-    std::string
+    virtual std::string
     ClassName() const override;
     
     
     
 private:
-    //
-    std::vector<ColorGlyphPtr> gaps;
 };
 
 using ColorCodeGlyphPtr = typename std::shared_ptr<ColorCodeGlyph>;

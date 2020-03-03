@@ -118,11 +118,11 @@ private:
 class PVColorCodeAreaGlyph : public ColorCodeAreaGlyph
 {
 public:
-    PVColorCodeAreaGlyph(const ColorCode& ccode);
+    PVColorCodeAreaGlyph(int nb_turns);
     PVColorCodeAreaGlyph(const PVColorCodeAreaGlyph& orig) = delete;
     virtual ~PVColorCodeAreaGlyph();
     
-    void
+    virtual void
     drawSelf(Window *w) const override;
     
 private:
@@ -132,11 +132,11 @@ private:
 class PVVerdictsAreaGlyph : public VerdictsAreaGlyph
 {
 public:
-    PVVerdictsAreaGlyph(const ColorCode& ccode);
+    PVVerdictsAreaGlyph(int nb_turns);
     PVVerdictsAreaGlyph(const PVVerdictsAreaGlyph& orig) = delete;
     virtual ~PVVerdictsAreaGlyph();
     
-    void
+    virtual void
     drawSelf(Window *w) const override;
     
 private:

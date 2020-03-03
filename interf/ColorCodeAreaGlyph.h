@@ -34,7 +34,8 @@ namespace MMG
 class ColorCodeAreaGlyph : public CompositeGlyph
 {
 public:
-    ColorCodeAreaGlyph();
+    ColorCodeAreaGlyph() = delete;
+    ColorCodeAreaGlyph(int nb_turns);
     ColorCodeAreaGlyph(const ColorCodeAreaGlyph& orig)  = delete;
     virtual ~ColorCodeAreaGlyph();
 

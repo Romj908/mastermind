@@ -30,9 +30,8 @@ namespace MMG
 
 
 ColorCodeGlyph::ColorCodeGlyph(const ColorCode& ccode)
+: CompositeGlyph{ccode.lenght()}
 {
-    gaps.resize(ColorCode::lenght());
-    
 }
 
 

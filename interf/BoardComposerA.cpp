@@ -43,13 +43,15 @@ BoardComposerA::~BoardComposerA()
 {
 }
 
+
+
 BoardGameGlyphPtr 
 BoardComposerA::build()
 {
     glyphes_ptr = glyph_factory_ptr->newBoardGameGlyph();
     
     /* creates the ColorCodes area*/
-    auto ve_area = glyph_factory_ptr->newVerdictsAreaGlyph();
+    auto ve_area = glyph_factory_ptr->newVerdictsAreaGlyph(GameBoard::nbTurns());
     glyphes_ptr->setChild(BoardGameGlyph::colorCodesArea, ve_area);
     /* allocate one color code per game turn */
     for (int t = 0; t< GameBoard::nbTurns(); t++)
@@ -60,7 +62,7 @@ BoardComposerA::build()
     }
 
     /* creates the indicators area */
-    auto cc_area = glyph_factory_ptr->newColorCodeAreaGlyph();
+    auto cc_area = glyph_factory_ptr->newColorCodeAreaGlyph(GameBoard::nbTurns());
     glyphes_ptr->setChild(BoardGameGlyph::verdictsArea, cc_area);
     /* allocate one verdict per game turn */
     for (int t = 0; t< GameBoard::nbTurns(); t++)

@@ -28,7 +28,8 @@
 namespace MMG
 {
 
-VerdictsAreaGlyph::VerdictsAreaGlyph()
+VerdictsAreaGlyph::VerdictsAreaGlyph(int nb_turns)
+: CompositeGlyph{nb_turns}
 {
 }
 

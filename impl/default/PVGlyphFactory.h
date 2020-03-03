@@ -54,10 +54,10 @@ public:
     newBoardGameGlyph() const override;
 
     virtual ColorCodeAreaGlyphPtr 
-    newColorCodeAreaGlyph() const override;
+    newColorCodeAreaGlyph(int nb_turns) const override;
     
     virtual VerdictsAreaGlyphPtr 
-    newVerdictsAreaGlyph() const override;
+    newVerdictsAreaGlyph(int nb_turns) const override;
     
 private:
 

@@ -88,29 +88,31 @@ CompositeGlyph::getChild(int idx) const  noexcept
 }
 
 void
-CompositeGlyph::setChild(int idx, GlyphPtr child)
+CompositeGlyph::setChild(int idx, GlyphPtr new_child_ptr)
 {
-    auto child_ptr = children[idx];
-    if ( child_ptr )
+    auto old_child_ptr = children[idx];
+    if ( old_child_ptr )
     {
         // debug : check the link to the parent
-        auto parent_ptr = child_ptr->getParent(); // build a shared_ptr
+        auto parent_ptr = old_child_ptr->getParent(); // build a shared_ptr
         assert(parent_ptr.get() == dynamic_cast<Glyph*>(this));
     }
-    children[idx] = child;
-    auto sptr = GlyphPtr {dynamic_cast<Glyph*>(this)};
-    child->setParent(sptr);  // implicit shared_ to weak_ conversion
+    children[idx] = new_child_ptr;
+    assert(dynamic_cast<Glyph*>(this));
+    GlyphPtr sptr {this};
+//    GlyphPtr sptr {dynamic_cast<Glyph*>(this)};
+    new_child_ptr->setParent(sptr);  // implicit shared_ptr to weak_ptr conversion
 }
 
 void
 CompositeGlyph::deleteChild(int idx)
 {
-    auto child_ptr = children[idx];
+    auto old_child_ptr = children[idx];
     // if the child is valid, reset its 'parent' link and delete it.
-    if ( child_ptr )
+    if ( old_child_ptr )
     {
         // debug : check the link to the parent
-        auto parent_ptr = child_ptr->getParent(); // build a shared_ptr
+        auto parent_ptr = old_child_ptr->getParent(); // build a shared_ptr
         assert(parent_ptr.get() == dynamic_cast<Glyph*>(this));
         // clear this pointer to the child.
         children[idx].reset();

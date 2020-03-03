@@ -72,15 +72,17 @@ PVGlyphFactory::newBoardGameGlyph() const
 }
 
 ColorCodeAreaGlyphPtr 
-PVGlyphFactory::newColorCodeAreaGlyph() const
+PVGlyphFactory::newColorCodeAreaGlyph(int nb_turns) const
 {
-    return nullptr;
+    ColorCodeAreaGlyphPtr ptr{ new PVColorCodeAreaGlyph{nb_turns} };
+    return ptr;
 }
 
 VerdictsAreaGlyphPtr 
-PVGlyphFactory::newVerdictsAreaGlyph() const
+PVGlyphFactory::newVerdictsAreaGlyph(int nb_turns) const
 {
-    return nullptr;
+    VerdictsAreaGlyphPtr ptr{ new PVVerdictsAreaGlyph{nb_turns} };
+    return ptr;
 }
 
 
