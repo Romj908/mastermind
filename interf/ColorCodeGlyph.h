@@ -58,7 +58,7 @@ public:
 private:
 };
 
-using ColorCodeGlyphPtr = typename std::shared_ptr<ColorCodeGlyph>;
+using ColorCodeGlyphUPtr = typename std::unique_ptr<ColorCodeGlyph>;
 
 
 }// MMG

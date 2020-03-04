@@ -50,7 +50,7 @@ public:
     virtual ~BoardComposer() {};
 
     // build the complete tree, with no consideration of disposition.
-    virtual BoardGameGlyphPtr build() = 0;
+    virtual void build() = 0;
 
     /* from the reference top-left point, dispose the children and compute the 
      * enclosing rectangle and the one of every children.  
@@ -63,10 +63,9 @@ public:
     virtual void draw(Window *w) const = 0;
     
 protected:
-    BoardGameGlyphPtr   glyphes_ptr;
+    BoardGameGlyphUPtr  glyphes_ptr;
     GlyphFactoryPtr     glyph_factory_ptr;
-    
-    GameBoardPtr game_ptr;
+    GameBoardPtr        game_ptr;
     
     
 private:

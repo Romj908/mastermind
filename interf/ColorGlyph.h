@@ -79,7 +79,7 @@ protected:
     Color color;
 };
 
-using ColorGlyphPtr = typename std::shared_ptr<ColorGlyph>;
+using ColorGlyphUPtr = typename std::unique_ptr<ColorGlyph>;
 
 
 }// mirza

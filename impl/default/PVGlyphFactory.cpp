@@ -36,52 +36,52 @@ PVGlyphFactory::~PVGlyphFactory()
 {
 }
 
-ColorGlyphPtr 
+ColorGlyphUPtr 
 PVGlyphFactory::newColorGlyph(Color color) const
 {
-    ColorGlyphPtr ptr{ new PVColorGlyph{color} };
+    ColorGlyphUPtr ptr{ new PVColorGlyph{color} };
     return ptr;
 }
 
-ColorCodeGlyphPtr 
+ColorCodeGlyphUPtr 
 PVGlyphFactory::newColorCodeGlyph(const ColorCode& ccode) const
 {
-    ColorCodeGlyphPtr ptr{ new PVColorCodeGlyph{ccode} };
+    ColorCodeGlyphUPtr ptr{ new PVColorCodeGlyph{ccode} };
     return ptr;
 }
 
-IndicatorGlyphPtr 
+IndicatorGlyphUPtr 
 PVGlyphFactory::newIndicatorGlyph() const
 {
-    IndicatorGlyphPtr ptr{ new PVIndicatorGlyph };
+    IndicatorGlyphUPtr ptr{ new PVIndicatorGlyph };
     return ptr;
 }
 
-VerdictGlyphPtr 
+VerdictGlyphUPtr 
 PVGlyphFactory::newVerdictGlyph(const Verdict& verdict) const
 {
-    VerdictGlyphPtr ptr{ new PVVerdictGlyph{verdict} };
+    VerdictGlyphUPtr ptr{ new PVVerdictGlyph{verdict} };
     return ptr;
 }
 
-BoardGameGlyphPtr 
+BoardGameGlyphUPtr 
 PVGlyphFactory::newBoardGameGlyph() const
 {
-    BoardGameGlyphPtr ptr{ new PVBoardGameGlyph };
+    BoardGameGlyphUPtr ptr{ new PVBoardGameGlyph };
     return ptr;
 }
 
-ColorCodeAreaGlyphPtr 
-PVGlyphFactory::newColorCodeAreaGlyph(int nb_turns) const
+ColorCodeAreaGlyphUPtr 
+PVGlyphFactory::newColorCodeAreaGlyph(std::size_t nb_turns) const
 {
-    ColorCodeAreaGlyphPtr ptr{ new PVColorCodeAreaGlyph{nb_turns} };
+    ColorCodeAreaGlyphUPtr ptr{ new PVColorCodeAreaGlyph{nb_turns} };
     return ptr;
 }
 
-VerdictsAreaGlyphPtr 
-PVGlyphFactory::newVerdictsAreaGlyph(int nb_turns) const
+VerdictsAreaGlyphUPtr 
+PVGlyphFactory::newVerdictsAreaGlyph(std::size_t nb_turns) const
 {
-    VerdictsAreaGlyphPtr ptr{ new PVVerdictsAreaGlyph{nb_turns} };
+    VerdictsAreaGlyphUPtr ptr{ new PVVerdictsAreaGlyph{nb_turns} };
     return ptr;
 }
 

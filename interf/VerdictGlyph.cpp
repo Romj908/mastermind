@@ -48,6 +48,7 @@ IndicatorGlyph::draw(Window *w) const
 }
 
 VerdictGlyph::VerdictGlyph(const Verdict& verdict)
+:CompositeGlyph{verdict.theVect().size()}
 {
 }
 

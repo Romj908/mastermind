@@ -39,7 +39,7 @@ public:
     BoardComposerA(const BoardComposerA& orig) = delete;
     virtual ~BoardComposerA();
     
-    virtual BoardGameGlyphPtr build() override;
+    virtual void build() override;
 
     /* from the reference top-left point, dispose the children and compute the 
      * enclosing rectangle and the one of every children.  

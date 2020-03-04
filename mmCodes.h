@@ -59,19 +59,17 @@ enum class Indic : unsigned int
 class ColorCode // in the sense of combination
 {
 public:
-  ColorCode () 
-  : up{new vector<Color>(ColorCode::code_lenght, Color::None)}
-  {
-    ColorCode::nb_instances += 1;
-  };
+    using CodeSize = std::vector<Color>::size_type;
+    
+  ColorCode (); 
+  ColorCode (CodeSize length);
+  ColorCode( std::initializer_list<Color> lst);
+  
   ColorCode (const ColorCode& orig); // copy ctor
   ColorCode (ColorCode&& orig); // move dtor
 
   virtual
-  ~ColorCode ()
-  {
-    ColorCode::nb_instances -= 1;
-  }
+  ~ColorCode ();
 
   ColorCode & operator= (const ColorCode& orig); // copy assignment
   ColorCode & operator= (ColorCode&& orig); // move assignment

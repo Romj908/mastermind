@@ -35,7 +35,7 @@ class VerdictsAreaGlyph : public CompositeGlyph
 {
 public:
     VerdictsAreaGlyph() = delete;
-    VerdictsAreaGlyph(int nb_turns);
+    VerdictsAreaGlyph(std::size_t nb_turns);
     VerdictsAreaGlyph(const VerdictsAreaGlyph& orig) = delete;
     virtual ~VerdictsAreaGlyph();
 
@@ -46,7 +46,7 @@ private:
 };
 
 
-using VerdictsAreaGlyphPtr = typename std::shared_ptr<VerdictsAreaGlyph>;
+using VerdictsAreaGlyphUPtr = typename std::unique_ptr<VerdictsAreaGlyph>;
 
 }//MMG
 #endif /* VERDICTSAREAGLYPH_H */

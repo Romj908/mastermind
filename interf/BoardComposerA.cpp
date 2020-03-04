@@ -45,39 +45,50 @@ BoardComposerA::~BoardComposerA()
 
 
 
-BoardGameGlyphPtr 
+void 
 BoardComposerA::build()
 {
     glyphes_ptr = glyph_factory_ptr->newBoardGameGlyph();
     
     /* creates the ColorCodes area*/
-    auto ve_area = glyph_factory_ptr->newVerdictsAreaGlyph(GameBoard::nbTurns());
-    glyphes_ptr->setChild(BoardGameGlyph::colorCodesArea, ve_area);
+    auto verdict_area_up = glyph_factory_ptr->newVerdictsAreaGlyph(GameBoard::nbTurns());
     /* allocate one color code per game turn */
     for (int t = 0; t< GameBoard::nbTurns(); t++)
     {
         auto ccode = game_ptr->getCode(t);
         auto ccode_glyph_ptr = glyph_factory_ptr->newColorCodeGlyph(ccode);
-        ve_area->setChild(t, ccode_glyph_ptr);
+        verdict_area_up.get()->setChild(t, std::move(ccode_glyph_ptr));
     }
+    glyphes_ptr->setChild(BoardGameGlyph::verdictsArea, 
+                          std::move(verdict_area_up));
 
     /* creates the indicators area */
-    auto cc_area = glyph_factory_ptr->newColorCodeAreaGlyph(GameBoard::nbTurns());
-    glyphes_ptr->setChild(BoardGameGlyph::verdictsArea, cc_area);
+    auto ccode_area_up = glyph_factory_ptr->newColorCodeAreaGlyph(GameBoard::nbTurns());
     /* allocate one verdict per game turn */
     for (int t = 0; t< GameBoard::nbTurns(); t++)
     {
         const Verdict& verdict = game_ptr->getVerdict(t);
         auto verdict_glyph_ptr = glyph_factory_ptr->newVerdictGlyph(verdict);
-        cc_area->setChild(t, verdict_glyph_ptr);
+        ccode_area_up.get()->setChild(t, std::move(verdict_glyph_ptr));
     }
+    glyphes_ptr->setChild(BoardGameGlyph::colorCodesArea, 
+                          std::move(ccode_area_up));
     
     /* create the secret code area */
     auto scode = game_ptr->getSecretCode();
-    auto scode_glyph_ptr = glyph_factory_ptr->newColorCodeGlyph(scode);
-    glyphes_ptr->setChild(BoardGameGlyph::secretCodeArea, scode_glyph_ptr);
+    auto scode_glyph_up = glyph_factory_ptr->newColorCodeGlyph(scode);
     
-    return glyphes_ptr;
+    glyphes_ptr->setChild(BoardGameGlyph::secretCodeArea, 
+                          std::move(scode_glyph_up));
+    
+    /* create the color panel area */
+    /* the color panel code has one element per allowed color  */
+    ColorCode color_panel{};
+    auto panel_glyph_up = glyph_factory_ptr->newColorCodeGlyph(color_panel);
+    
+    glyphes_ptr->setChild(BoardGameGlyph::colorPanelArea, 
+                          std::move(panel_glyph_up));
+    
 }
 
 void BoardComposerA::compose(const Rect& win_rect )

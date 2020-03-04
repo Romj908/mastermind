@@ -38,26 +38,26 @@ public:
     PVGlyphFactory(const PVGlyphFactory& orig) = delete;
     virtual ~PVGlyphFactory();
     
-    virtual ColorGlyphPtr 
+    virtual ColorGlyphUPtr 
     newColorGlyph(Color color) const override;
     
-    virtual ColorCodeGlyphPtr 
+    virtual ColorCodeGlyphUPtr 
     newColorCodeGlyph(const ColorCode& ccode) const override;
     
-    virtual IndicatorGlyphPtr 
+    virtual IndicatorGlyphUPtr 
     newIndicatorGlyph() const override;
     
-    virtual VerdictGlyphPtr 
+    virtual VerdictGlyphUPtr 
     newVerdictGlyph(const Verdict& verdict) const override;
     
-    virtual BoardGameGlyphPtr 
+    virtual BoardGameGlyphUPtr 
     newBoardGameGlyph() const override;
 
-    virtual ColorCodeAreaGlyphPtr 
-    newColorCodeAreaGlyph(int nb_turns) const override;
+    virtual ColorCodeAreaGlyphUPtr 
+    newColorCodeAreaGlyph(std::size_t nb_turns) const override;
     
-    virtual VerdictsAreaGlyphPtr 
-    newVerdictsAreaGlyph(int nb_turns) const override;
+    virtual VerdictsAreaGlyphUPtr 
+    newVerdictsAreaGlyph(std::size_t nb_turns) const override;
     
 private:
 

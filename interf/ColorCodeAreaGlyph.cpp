@@ -27,7 +27,7 @@
 namespace MMG
 {
 
-ColorCodeAreaGlyph::ColorCodeAreaGlyph(int nb_turns)
+ColorCodeAreaGlyph::ColorCodeAreaGlyph(std::size_t nb_turns)
 : CompositeGlyph{nb_turns}
 {
 }

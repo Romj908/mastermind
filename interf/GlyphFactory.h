@@ -40,26 +40,26 @@ public:
     GlyphFactory();
     virtual ~GlyphFactory();
     
-    virtual ColorGlyphPtr 
+    virtual ColorGlyphUPtr 
     newColorGlyph(Color color) const = 0;
     
-    virtual ColorCodeGlyphPtr 
+    virtual ColorCodeGlyphUPtr 
     newColorCodeGlyph(const ColorCode& ccode) const = 0;
     
-    virtual IndicatorGlyphPtr 
+    virtual IndicatorGlyphUPtr 
     newIndicatorGlyph() const = 0;
     
-    virtual VerdictGlyphPtr 
+    virtual VerdictGlyphUPtr 
     newVerdictGlyph(const Verdict& verdict) const = 0;
     
-    virtual BoardGameGlyphPtr 
+    virtual BoardGameGlyphUPtr 
     newBoardGameGlyph() const = 0;
     
-    virtual ColorCodeAreaGlyphPtr 
-    newColorCodeAreaGlyph(int nb_turns) const = 0;
+    virtual ColorCodeAreaGlyphUPtr 
+    newColorCodeAreaGlyph(std::size_t nb_turns) const = 0;
     
-    virtual VerdictsAreaGlyphPtr 
-    newVerdictsAreaGlyph(int nb_turns) const = 0;
+    virtual VerdictsAreaGlyphUPtr 
+    newVerdictsAreaGlyph(std::size_t nb_turns) const = 0;
     
 private:
     static int nb_instances; 

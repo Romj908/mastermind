@@ -54,6 +54,10 @@ public:
     
     void
     drawSelf(Window *w) const override;
+
+    /* setup all the graphical elements (areas, etc...) */
+    virtual void
+    compose(const Rect& win_rect) override; 
     
 private:
 
@@ -68,6 +72,10 @@ public:
     
     void
     drawSelf(Window *w) const override;
+    
+    /* setup all the color codes and gaps */
+    virtual void
+    compose(const Rect& win_rect) override; 
     
 private:
 
@@ -111,6 +119,9 @@ public:
     void
     drawSelf(Window *w) const override;
     
+    /* setup every indicator and gap in the verdict */
+    virtual void
+    compose(const Rect& win_rect) override; 
 private:
 
 };
@@ -118,13 +129,16 @@ private:
 class PVColorCodeAreaGlyph : public ColorCodeAreaGlyph
 {
 public:
-    PVColorCodeAreaGlyph(int nb_turns);
+    PVColorCodeAreaGlyph(std::size_t nb_turns);
     PVColorCodeAreaGlyph(const PVColorCodeAreaGlyph& orig) = delete;
     virtual ~PVColorCodeAreaGlyph();
     
     virtual void
     drawSelf(Window *w) const override;
     
+    /* setup all the color codes of the area */
+    virtual void
+    compose(const Rect& win_rect) override; 
 private:
 
 };
@@ -132,13 +146,16 @@ private:
 class PVVerdictsAreaGlyph : public VerdictsAreaGlyph
 {
 public:
-    PVVerdictsAreaGlyph(int nb_turns);
+    PVVerdictsAreaGlyph(std::size_t nb_turns);
     PVVerdictsAreaGlyph(const PVVerdictsAreaGlyph& orig) = delete;
     virtual ~PVVerdictsAreaGlyph();
     
     virtual void
     drawSelf(Window *w) const override;
     
+    /* setup all the verdicts of the area  */
+    virtual void
+    compose(const Rect& win_rect) override; 
 private:
 
 };

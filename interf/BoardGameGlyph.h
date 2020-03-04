@@ -40,6 +40,7 @@ public:
         colorCodesArea = 0,
         verdictsArea = 1,
         secretCodeArea = 2,
+        colorPanelArea = 3,
         nbAreas
     };
     
@@ -50,15 +51,12 @@ public:
     std::string
     ClassName() const override;
 
-    void
-    drawSelf(Window *w) const override;
-
 
 private:
 
 };
 
-using BoardGameGlyphPtr = typename std::shared_ptr<BoardGameGlyph>;
+using BoardGameGlyphUPtr = typename std::unique_ptr<BoardGameGlyph>;
 
 }
 

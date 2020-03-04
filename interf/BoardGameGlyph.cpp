@@ -42,12 +42,6 @@ BoardGameGlyph::ClassName() const
     return "BoardGameGlyph";
 }
 
-void 
-BoardGameGlyph::drawSelf(Window *w) const
-{
-    
-}
-
 } // MMG
 
 

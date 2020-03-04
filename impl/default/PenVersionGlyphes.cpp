@@ -62,6 +62,12 @@ PVBoardGameGlyph::~PVBoardGameGlyph()
 {
 }
 
+void
+PVBoardGameGlyph::compose(const Rect& win_rect) 
+{
+    
+}
+
 void 
 PVBoardGameGlyph::drawSelf(Window *w ) const
 {
@@ -74,20 +80,27 @@ PVBoardGameGlyph::drawSelf(Window *w ) const
 PVColorCodeGlyph::PVColorCodeGlyph(const ColorCode& ccode)
 :ColorCodeGlyph{ccode}
 {
-    assert(children.size() == ColorCode::lenght());
-    for (int i=0; i < ColorCode::lenght(); i++)
+    int nb_gaps = ccode.theVect().size();
+    assert(children.size() == ccode.theVect().size());
+    for (int i=0; i < nb_gaps; i++)
     {
         Color color{ ccode.getColor(i) };
         
-        ColorGlyphPtr cgptr{ new PVColorGlyph(color) };
+        GlyphUPtr cg_ptr{ new PVColorGlyph{color} };
         
-        setChild(i, cgptr);
+        setChild(i, std::move(cg_ptr));
     }
 
 }
 
 PVColorCodeGlyph::~PVColorCodeGlyph()
 {
+}
+
+void
+PVColorCodeGlyph::compose(const Rect& win_rect) 
+{
+    
 }
 
 void 
@@ -133,6 +146,12 @@ PVVerdictGlyph::~PVVerdictGlyph()
 {
 }
 
+void
+PVVerdictGlyph::compose(const Rect& win_rect) 
+{
+    
+}
+
 void 
 PVVerdictGlyph::drawSelf(Window *w ) const
 {
@@ -162,7 +181,7 @@ PVIndicatorGlyph::draw(Window *w ) const
     }
 }
 
-PVVerdictsAreaGlyph::PVVerdictsAreaGlyph(int nb_turns)
+PVVerdictsAreaGlyph::PVVerdictsAreaGlyph(std::size_t nb_turns)
 : VerdictsAreaGlyph{nb_turns}
 {
     
@@ -174,12 +193,18 @@ PVVerdictsAreaGlyph::~PVVerdictsAreaGlyph()
 }
 
 void
+PVVerdictsAreaGlyph::compose(const Rect& win_rect) 
+{
+    
+}
+
+void
 PVVerdictsAreaGlyph::drawSelf(Window *w) const 
 {
 
 }
 
-PVColorCodeAreaGlyph::PVColorCodeAreaGlyph(int nb_turns)
+PVColorCodeAreaGlyph::PVColorCodeAreaGlyph(std::size_t nb_turns)
 : ColorCodeAreaGlyph{nb_turns}
 {
     
@@ -189,6 +214,13 @@ PVColorCodeAreaGlyph::~PVColorCodeAreaGlyph()
 {
     
 }
+
+void
+PVColorCodeAreaGlyph::compose(const Rect& win_rect) 
+{
+    
+}
+
 void
 PVColorCodeAreaGlyph::drawSelf(Window *w) const 
 {

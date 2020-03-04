@@ -54,7 +54,7 @@ void game_session(void)
     BoardComposerAPtr board_composer {};
     board_composer.reset( new BoardComposerA {game_board_ptr, pvgfactory} );
     
-    BoardGameGlyphPtr board_game_glyphes_ptr = board_composer->build();
+    board_composer->build();
     
     Rect dummy_rect {0, 0, 1024, 758};
     board_composer->compose(dummy_rect);

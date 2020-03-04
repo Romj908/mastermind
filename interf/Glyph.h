@@ -45,8 +45,8 @@ namespace MMG
 {
 
 class Glyph;
-using GlyphPtr = typename std::shared_ptr<Glyph>;
-using GlyphIterator = typename std::vector<GlyphPtr>::iterator;
+using GlyphUPtr = typename std::unique_ptr<Glyph>;
+using GlyphIterator = typename std::vector<Glyph *>::iterator;
 
 
 /* basic pattern */
@@ -78,9 +78,9 @@ public:
     getCoords(const Point & point) const noexcept;
 
     virtual void
-    setParent(const GlyphPtr parent) noexcept;
+    setParent(Glyph * parent) noexcept;
 
-    virtual GlyphPtr
+    virtual Glyph *
     getParent(void) const;
 
     virtual int
@@ -100,7 +100,7 @@ public:
 
 protected:
     // apart of the root, every node has got a parent node. 
-    std::weak_ptr<Glyph> parent{};
+    Glyph *parent{};
 
     // debugging
     std::string name{}; // instance name
@@ -113,7 +113,7 @@ class CompositeGlyph : public Glyph
 public:
 
     CompositeGlyph();
-    CompositeGlyph(int nb_children);
+    CompositeGlyph(std::size_t nb_children);
     CompositeGlyph(const CompositeGlyph& orig) = delete;
     virtual ~CompositeGlyph() {};
 
@@ -128,20 +128,21 @@ public:
 
 public:
     /* Children management */
-    virtual GlyphPtr
+    virtual Glyph *
     getChild(int idx) const noexcept;
 
     virtual void
-    setChild(int idx, GlyphPtr child);
+    setChild(int idx, GlyphUPtr&& child);
 
     virtual void
     deleteChild(int idx);
 
-    virtual GlyphPtr
+    virtual GlyphUPtr
     extractChild(int idx);
     
+    virtual void 
+    compose(const Rect& win_rect) = 0; /* Draw the composite and its children */
     
-public:
     void
     draw(Window *w) const override; /* Draw the composite and its children */
 protected:
@@ -159,7 +160,7 @@ protected:
     // 3) We don't abstract the traversal operations into a Iterator pattern.
     // 4) It's a pure tree : there is no cycle like a child located above in the 
     // hierarchy)
-    std::vector<GlyphPtr> children{};
+    std::vector<GlyphUPtr> children{};
 
 };
 

@@ -35,7 +35,7 @@ class ColorCodeAreaGlyph : public CompositeGlyph
 {
 public:
     ColorCodeAreaGlyph() = delete;
-    ColorCodeAreaGlyph(int nb_turns);
+    ColorCodeAreaGlyph(std::size_t nb_turns);
     ColorCodeAreaGlyph(const ColorCodeAreaGlyph& orig)  = delete;
     virtual ~ColorCodeAreaGlyph();
 
@@ -43,7 +43,7 @@ private:
 
 };
 
-using ColorCodeAreaGlyphPtr = typename std::shared_ptr<ColorCodeAreaGlyph>;
+using ColorCodeAreaGlyphUPtr = typename std::unique_ptr<ColorCodeAreaGlyph>;
 
 } // MMG
 #endif /* COLORCODEAREAGLYPH_H */

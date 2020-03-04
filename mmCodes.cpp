@@ -34,6 +34,34 @@ uint ColorCode::code_lenght = 0;
 int  ColorCode::nb_instances = 0;
 Color ColorCode::color_limit = Color::NbColors;
 
+ColorCode::ColorCode () 
+: up{new vector<Color>(ColorCode::code_lenght, Color::None)}
+{
+  ColorCode::nb_instances += 1;
+};
+
+ColorCode::ColorCode (CodeSize lenght) 
+: up{new vector<Color>(lenght, Color::None)}
+{
+  ColorCode::nb_instances += 1;
+};
+
+ColorCode::ColorCode(std::initializer_list<Color> lst)
+: up{new vector<Color>(lst)}
+{
+}
+
+//ColorCode::ColorCode(std::initializer_list<Color> lst)
+//: up{new vector<Color>( lst.size())}
+//{
+//    std::copy(lst.begin(), lst.end(), *up);
+//}
+
+ColorCode::~ColorCode ()
+{
+  ColorCode::nb_instances -= 1;
+}
+
 bool ColorCode::setDifficulty(int code_lenght, int n_colors)
 noexcept
 {

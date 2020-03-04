@@ -66,7 +66,7 @@ private:
     Indic indic;
 };
 
-using IndicatorGlyphPtr = typename std::shared_ptr<IndicatorGlyph>;
+using IndicatorGlyphUPtr = typename std::shared_ptr<IndicatorGlyph>;
 
 
 
@@ -95,10 +95,10 @@ public:
     
 private:
     //
-    std::vector<IndicatorGlyphPtr> indics;
+    std::vector<IndicatorGlyphUPtr> indics;
 };
 
-using VerdictGlyphPtr = typename std::shared_ptr<VerdictGlyph>;
+using VerdictGlyphUPtr = typename std::unique_ptr<VerdictGlyph>;
 
 
 }// MMG

@@ -30,7 +30,7 @@ namespace MMG
 
 
 ColorCodeGlyph::ColorCodeGlyph(const ColorCode& ccode)
-: CompositeGlyph{ccode.lenght()}
+: CompositeGlyph{ccode.theVect().size()}
 {
 }
 
