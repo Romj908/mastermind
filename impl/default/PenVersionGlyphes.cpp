@@ -227,5 +227,28 @@ PVColorCodeAreaGlyph::drawSelf(Window *w) const
 
 }
 
+PVColorPanelAreaGlyph::PVColorPanelAreaGlyph(std::size_t nb_colors)
+: ColorPanelAreaGlyph{nb_colors}
+{
+    
+}
+
+PVColorPanelAreaGlyph::~PVColorPanelAreaGlyph()
+{
+    
+}
+
+void
+PVColorPanelAreaGlyph::compose(const Rect& win_rect) 
+{
+    
+}
+
+void
+PVColorPanelAreaGlyph::drawSelf(Window *w) const 
+{
+
+}
+
 } // MMG
 

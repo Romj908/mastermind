@@ -38,6 +38,7 @@
 #include "../interf/VerdictGlyph.h"
 #include "../interf/ColorCodeAreaGlyph.h"
 #include "../interf/VerdictsAreaGlyph.h"
+#include "../interf/ColorPanelAreaGlyph.h"
 
 /*
  * 
@@ -149,6 +150,23 @@ public:
     PVVerdictsAreaGlyph(std::size_t nb_turns);
     PVVerdictsAreaGlyph(const PVVerdictsAreaGlyph& orig) = delete;
     virtual ~PVVerdictsAreaGlyph();
+    
+    virtual void
+    drawSelf(Window *w) const override;
+    
+    /* setup all the verdicts of the area  */
+    virtual void
+    compose(const Rect& win_rect) override; 
+private:
+
+};
+
+class PVColorPanelAreaGlyph : public ColorPanelAreaGlyph
+{
+public:
+    PVColorPanelAreaGlyph(std::size_t nb_colors);
+    PVColorPanelAreaGlyph(const PVColorPanelAreaGlyph& orig) = delete;
+    virtual ~PVColorPanelAreaGlyph();
     
     virtual void
     drawSelf(Window *w) const override;

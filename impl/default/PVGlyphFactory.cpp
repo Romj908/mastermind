@@ -85,5 +85,12 @@ PVGlyphFactory::newVerdictsAreaGlyph(std::size_t nb_turns) const
     return ptr;
 }
 
+ColorPanelAreaGlyphUPtr 
+PVGlyphFactory::newColorPanelAreaGlyph(std::size_t nb_colors) const 
+{
+    ColorPanelAreaGlyphUPtr ptr{ new PVColorPanelAreaGlyph{nb_colors} };
+    return ptr;
+}
+
 
 } // MMG

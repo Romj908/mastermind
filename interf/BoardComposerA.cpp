@@ -83,8 +83,7 @@ BoardComposerA::build()
     
     /* create the color panel area */
     /* the color panel code has one element per allowed color  */
-    ColorCode color_panel{};
-    auto panel_glyph_up = glyph_factory_ptr->newColorCodeGlyph(color_panel);
+    auto panel_glyph_up = glyph_factory_ptr->newColorPanelAreaGlyph(ColorCode::nb_colors());
     
     glyphes_ptr->setChild(BoardGameGlyph::colorPanelArea, 
                           std::move(panel_glyph_up));

@@ -59,6 +59,8 @@ public:
     virtual VerdictsAreaGlyphUPtr 
     newVerdictsAreaGlyph(std::size_t nb_turns) const override;
     
+    virtual ColorPanelAreaGlyphUPtr 
+    newColorPanelAreaGlyph(std::size_t nb_turns) const override;
 private:
 
 };

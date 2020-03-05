@@ -31,6 +31,7 @@
 #include "ColorCodeAreaGlyph.h"
 #include "VerdictGlyph.h"
 #include "VerdictsAreaGlyph.h"
+#include "ColorPanelAreaGlyph.h"
 
 namespace MMG
 {
@@ -60,6 +61,9 @@ public:
     
     virtual VerdictsAreaGlyphUPtr 
     newVerdictsAreaGlyph(std::size_t nb_turns) const = 0;
+    
+    virtual ColorPanelAreaGlyphUPtr 
+    newColorPanelAreaGlyph(std::size_t nb_colors) const = 0;
     
 private:
     static int nb_instances; 
