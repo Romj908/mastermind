@@ -127,6 +127,14 @@ ColorCode & ColorCode::operator=(ColorCode&& orig)
     ColorCode::nb_instances += 1;
 }
 
+/*
+ Verdict class
+ */
+
+Verdict::Verdict () 
+: up{new vector<Indic>(ColorCode::lenght (), Indic::None)}
+{
+};
 //Verdict::Verdict (const Verdict& orig)
 //{
 //    

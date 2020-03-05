@@ -141,9 +141,7 @@ public:
 class Verdict
 {
 public:
-  Verdict () : up{new vector<Indic>(ColorCode::lenght (), Indic::None)}
-  {
-  };
+  Verdict ();
   
   // move & copy constructor not required.
   //Verdict (const Verdict& orig); // copy ctor
