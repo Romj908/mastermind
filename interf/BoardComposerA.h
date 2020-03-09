@@ -51,8 +51,8 @@ public:
 private:
 
 };
-using BoardComposerAPtr = typename std::shared_ptr<BoardComposerA>;
+using BoardComposerAPtr = typename std::unique_ptr<BoardComposerA>;
 
-}
+} // MMG
 #endif /* BOARDCOMPOSERA_H */
 

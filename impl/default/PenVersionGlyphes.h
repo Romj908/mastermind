@@ -89,6 +89,9 @@ public:
     PVColorGlyph(const PVColorGlyph& orig) = delete;
     virtual ~PVColorGlyph();
     
+    virtual void
+    compose(const Rect& win_rect) override;
+
     void
     draw(Window *w) const override;
     
@@ -102,6 +105,9 @@ public:
     PVIndicatorGlyph();
     PVIndicatorGlyph(const PVIndicatorGlyph& orig) = delete;
     virtual ~PVIndicatorGlyph();
+    
+    virtual void
+    compose(const Rect& win_rect) override;
     
     void
     draw(Window *w) const override;

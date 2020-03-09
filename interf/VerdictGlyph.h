@@ -47,6 +47,11 @@ public:
 
     std::string
     ClassName() const override;
+
+
+    virtual void
+    compose(const Rect& win_rect) override; 
+
     void
     draw(Window *w) const override;
     

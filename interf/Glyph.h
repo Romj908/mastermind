@@ -67,8 +67,13 @@ public:
 
 
     /* Basic graphics */
+    
+    // derivate his own rectangle from the enclosing rectangle given as parameter
     virtual void
-    draw(Window *w) const = 0; // draw itself and included children if any
+    compose(const Rect& win_rect) = 0; 
+    
+    virtual void
+    draw(Window *w) const = 0; // draw itself (and included children if any)
 
     /* Positioning */
     virtual bool

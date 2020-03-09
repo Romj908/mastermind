@@ -27,9 +27,9 @@
 #include "mmCodes.h"
 //#include "mmBoard.h"
 #include "ConsoleGameBoard.h"
+#include "PVGlyphFactory.h"
 #include "BoardComposerA.h"
 #include "PenVersionGlyphes.h"
-#include "PVGlyphFactory.h"
 
 using namespace std;
 using namespace MMG;;
@@ -51,8 +51,8 @@ void game_session(void)
     GameBoardPtr    game_board_ptr { &game_board };
     GlyphFactoryPtr pvgfactory { new PVGlyphFactory{} } ;
     
-    BoardComposerAPtr board_composer {};
-    board_composer.reset( new BoardComposerA {game_board_ptr, pvgfactory} );
+    BoardComposerPtr board_composer {new BoardComposerA {game_board_ptr, pvgfactory}};
+    //board_composer.reset( new BoardComposerA {game_board_ptr, pvgfactory} );
     
     board_composer->build();
     

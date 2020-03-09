@@ -35,7 +35,7 @@ class BoardGameGlyph : public CompositeGlyph
 {
 public:
 
-    enum BoardGameArea : char
+    enum BoardGameArea : int
     {
         colorCodesArea = 0,
         verdictsArea = 1,

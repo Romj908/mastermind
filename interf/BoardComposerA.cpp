@@ -27,6 +27,7 @@
 #include "ColorCodeGlyph.h"
 #include "BoardComposerA.h"
 #include "mmBoard.h"
+#include "GlyphFactory.h"
 
 
 namespace MMG
@@ -51,7 +52,8 @@ BoardComposerA::build()
     glyphes_ptr = glyph_factory_ptr->newBoardGameGlyph();
     
     /* creates the ColorCodes area*/
-    auto verdict_area_up = glyph_factory_ptr->newVerdictsAreaGlyph(GameBoard::nbTurns());
+    VerdictsAreaGlyphUPtr verdict_area_up{};
+    verdict_area_up = glyph_factory_ptr->newVerdictsAreaGlyph((std::size_t)GameBoard::nbTurns());
     /* allocate one color code per game turn */
     for (int t = 0; t< GameBoard::nbTurns(); t++)
     {
@@ -85,7 +87,7 @@ BoardComposerA::build()
     /* the color panel code has one element per allowed color  */
     auto panel_glyph_up = glyph_factory_ptr->newColorPanelAreaGlyph(ColorCode::nb_colors());
     
-    glyphes_ptr->setChild(BoardGameGlyph::colorPanelArea, 
+    glyphes_ptr.get()->setChild(static_cast<int>(BoardGameGlyph::colorPanelArea), 
                           std::move(panel_glyph_up));
     
 }
@@ -93,6 +95,7 @@ BoardComposerA::build()
 void BoardComposerA::compose(const Rect& win_rect )
 {
     // place correctly the 
+    Glyph *ccode_area = glyphes_ptr->getChild(BoardGameGlyph::colorCodesArea);
 }
 
 void 

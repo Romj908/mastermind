@@ -34,6 +34,13 @@ ColorGlyph::ClassName() const
     return "ColorGlyph";
 }
 
+void
+ColorGlyph::compose(const Rect& win_rect)
+{
+    // by default the rect is the same than the enclosing one.
+    rect = win_rect;
+}
+
 void 
 ColorGlyph::draw (Window *w) const
 {

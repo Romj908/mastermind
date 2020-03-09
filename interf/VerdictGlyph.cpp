@@ -42,6 +42,13 @@ IndicatorGlyph::ClassName() const
 }
 
 void
+IndicatorGlyph::compose(const Rect& win_rect)
+{
+    // by default the rect is the same than the enclosing one.
+    rect = win_rect;
+}
+
+void
 IndicatorGlyph::draw(Window *w) const 
 {
 

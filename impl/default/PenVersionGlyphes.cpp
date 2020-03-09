@@ -122,6 +122,13 @@ PVColorGlyph::~PVColorGlyph()
 {
 }
 
+void
+PVColorGlyph::compose(const Rect& win_rect)
+{
+    
+}
+
+
 void 
 PVColorGlyph::draw(Window *w ) const
 {
@@ -167,6 +174,12 @@ PVIndicatorGlyph::PVIndicatorGlyph()
 
 PVIndicatorGlyph::~PVIndicatorGlyph()
 {
+}
+
+void
+PVIndicatorGlyph::compose(const Rect& win_rect)
+{
+    
 }
 
 void 
