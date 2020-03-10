@@ -102,7 +102,8 @@ private:
 class PVIndicatorGlyph : public IndicatorGlyph
 {
 public:
-    PVIndicatorGlyph();
+    PVIndicatorGlyph(const Indic ic = Indic::None);
+    PVIndicatorGlyph() = delete;
     PVIndicatorGlyph(const PVIndicatorGlyph& orig) = delete;
     virtual ~PVIndicatorGlyph();
     

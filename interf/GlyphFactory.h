@@ -48,7 +48,7 @@ public:
     newColorCodeGlyph(const ColorCode& ccode) const = 0;
     
     virtual IndicatorGlyphUPtr 
-    newIndicatorGlyph() const = 0;
+    newIndicatorGlyph(const Indic ic) const = 0;
     
     virtual VerdictGlyphUPtr 
     newVerdictGlyph(const Verdict& verdict) const = 0;

@@ -165,6 +165,20 @@ public:
     botRight = p;
   }
   
+  void
+  anchorTopLeft (const Point &p) noexcept
+  {
+    botRight.x = p.x + height();
+    botRight.y = p.y + width();
+    setTopLeft(p);
+  }
+
+  void
+  anchorBottomRight (const Point &p) noexcept
+  {
+      
+  }
+  
   void setCoords (int x1, int y1, int x2, int y2) noexcept
   {
     // Sets the coordinates of the rectangle's top-left corner to (x1, y1), 
@@ -256,6 +270,15 @@ public:
   setY (int y) noexcept
   {
     botRight.y = y;
+  }
+
+  void
+  shrink (int dx, int dy) noexcept
+  {
+    topLeft.x += dx;
+    topLeft.y += dy;
+    botRight.x -= dx;
+    botRight.y -= dy;
   }
 
   bool contains(int x, int y, bool proper) const;

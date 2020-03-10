@@ -71,8 +71,8 @@ const int VerdictVerticSpace = 10;
 const int VerdictAreaVerticMargin = 10;  
 const int VerdictAreaHorizMargin = 10;  
 
-const int BoardGameVerticMargin = 10;  
-const int BoardGameHorizMargin = 10;  
+const int BoardGameVerticMargin = 20;  
+const int BoardGameHorizMargin = 20;  
 
 
 /*PVBoardGameGlyph*/
@@ -89,17 +89,26 @@ PVBoardGameGlyph::compose(const Rect& win_rect)
 {
     rect = win_rect;
     
-    Rect temp_rect = win_rect;
-    
     // area of the color codes 
+    Rect ccodes_rect = win_rect;
+    ccodes_rect.shrink(BoardGameVerticMargin, BoardGameHorizMargin);
     Glyph *ccode_area = getChild(BoardGameGlyph::colorCodesArea);
+    ccode_area->compose(ccodes_rect);
+    ccodes_rect = ccode_area->rect; // the final produced rectangle.
     
-    temp_rect.moveVertic(BoardGameVerticMargin);
-    temp_rect.moveHoriz(BoardGameHorizMargin);
+    // area of the Verdict codes. Same height than the color codes.
+    Rect verdicts_rect = ccodes_rect;
+    verdicts_rect.moveHoriz(verdicts_rect.width() + BoardGameHorizMargin);
+    Glyph *verdicts_area = getChild(BoardGameGlyph::verdictsArea);
+    verdicts_area->compose(verdicts_rect);
+    verdicts_rect = verdicts_area->rect; // the final produced rectangle.
     
-    ccode_area->compose(temp_rect);
-    
-    
+    // area of the color panel.
+    Rect panel_rect = ccodes_rect;
+    panel_rect.moveVertic(panel_rect.height() + BoardGameVerticMargin);
+    Glyph *panel_area = getChild(BoardGameGlyph::colorPanelArea);
+    panel_area->compose(panel_rect);
+    panel_rect = panel_area->rect; // the final produced rectangle.
 }
 
 void 
@@ -237,6 +246,16 @@ PVColorCodeAreaGlyph::drawSelf(Window *w) const
 PVVerdictGlyph::PVVerdictGlyph(const Verdict& verdict)
 :VerdictGlyph{verdict}
 {
+    int nb_gaps = verdict.theVect().size();
+    assert(children.size() == verdict.theVect().size());
+    for (int i=0; i < nb_gaps; i++)
+    {
+        Indic indic {verdict.theVect().at(i)};
+        GlyphUPtr ind_ptr{ new PVIndicatorGlyph { indic } };
+        
+        setChild(i, std::move(ind_ptr));
+    }
+
 }
 
 PVVerdictGlyph::~PVVerdictGlyph()
@@ -272,8 +291,8 @@ PVVerdictGlyph::drawSelf(Window *w ) const
     
 }
 
-/* PVIndicatorGlyph */
-PVIndicatorGlyph::PVIndicatorGlyph()
+PVIndicatorGlyph::PVIndicatorGlyph(const Indic ic)
+: IndicatorGlyph {ic}
 {
     rect.setHeight(IndicatorGlyphSide);
     rect.setWidth(IndicatorGlyphSide);

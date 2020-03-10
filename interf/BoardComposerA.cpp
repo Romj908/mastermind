@@ -52,29 +52,29 @@ BoardComposerA::build()
     glyphes_ptr = glyph_factory_ptr->newBoardGameGlyph();
     
     /* creates the ColorCodes area*/
-    VerdictsAreaGlyphUPtr verdict_area_up{};
-    verdict_area_up = glyph_factory_ptr->newVerdictsAreaGlyph((std::size_t)GameBoard::nbTurns());
+    auto ccode_area_up = glyph_factory_ptr->newColorCodeAreaGlyph(GameBoard::nbTurns());
     /* allocate one color code per game turn */
     for (int t = 0; t< GameBoard::nbTurns(); t++)
     {
         auto ccode = game_ptr->getCode(t);
         auto ccode_glyph_ptr = glyph_factory_ptr->newColorCodeGlyph(ccode);
-        verdict_area_up.get()->setChild(t, std::move(ccode_glyph_ptr));
+        ccode_area_up.get()->setChild(t, std::move(ccode_glyph_ptr));
     }
-    glyphes_ptr->setChild(BoardGameGlyph::verdictsArea, 
-                          std::move(verdict_area_up));
+    glyphes_ptr->setChild(BoardGameGlyph::colorCodesArea, 
+                          std::move(ccode_area_up));
 
     /* creates the indicators area */
-    auto ccode_area_up = glyph_factory_ptr->newColorCodeAreaGlyph(GameBoard::nbTurns());
+    VerdictsAreaGlyphUPtr verdict_area_up{};
+    verdict_area_up = glyph_factory_ptr->newVerdictsAreaGlyph((std::size_t)GameBoard::nbTurns());
     /* allocate one verdict per game turn */
     for (int t = 0; t< GameBoard::nbTurns(); t++)
     {
         const Verdict& verdict = game_ptr->getVerdict(t);
         auto verdict_glyph_ptr = glyph_factory_ptr->newVerdictGlyph(verdict);
-        ccode_area_up.get()->setChild(t, std::move(verdict_glyph_ptr));
+        verdict_area_up.get()->setChild(t, std::move(verdict_glyph_ptr));
     }
-    glyphes_ptr->setChild(BoardGameGlyph::colorCodesArea, 
-                          std::move(ccode_area_up));
+    glyphes_ptr->setChild(BoardGameGlyph::verdictsArea, 
+                          std::move(verdict_area_up));
     
     /* create the secret code area */
     auto scode = game_ptr->getSecretCode();

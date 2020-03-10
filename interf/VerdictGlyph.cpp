@@ -27,7 +27,8 @@
 
 namespace MMG
 {
-IndicatorGlyph::IndicatorGlyph()
+IndicatorGlyph::IndicatorGlyph(const Indic ic)
+: indic {ic}
 {
 }
 

@@ -45,7 +45,7 @@ public:
     newColorCodeGlyph(const ColorCode& ccode) const override;
     
     virtual IndicatorGlyphUPtr 
-    newIndicatorGlyph() const override;
+    newIndicatorGlyph(const Indic ic) const override;
     
     virtual VerdictGlyphUPtr 
     newVerdictGlyph(const Verdict& verdict) const override;

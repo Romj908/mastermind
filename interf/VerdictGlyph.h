@@ -41,7 +41,8 @@ namespace MMG
 class IndicatorGlyph : public Glyph
 {
 public:
-    IndicatorGlyph();
+    IndicatorGlyph() = delete;
+    IndicatorGlyph(const Indic ic = Indic::None);
     IndicatorGlyph(const IndicatorGlyph& orig) = delete;
     virtual ~IndicatorGlyph();
 

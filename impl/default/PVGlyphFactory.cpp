@@ -51,9 +51,9 @@ PVGlyphFactory::newColorCodeGlyph(const ColorCode& ccode) const
 }
 
 IndicatorGlyphUPtr 
-PVGlyphFactory::newIndicatorGlyph() const
+PVGlyphFactory::newIndicatorGlyph(const Indic ic) const
 {
-    IndicatorGlyphUPtr ptr{ new PVIndicatorGlyph };
+    IndicatorGlyphUPtr ptr{ new PVIndicatorGlyph{ic} };
     return ptr;
 }
 
