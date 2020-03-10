@@ -94,8 +94,7 @@ BoardComposerA::build()
 
 void BoardComposerA::compose(const Rect& win_rect )
 {
-    // place correctly the 
-    Glyph *ccode_area = glyphes_ptr->getChild(BoardGameGlyph::colorCodesArea);
+    glyphes_ptr->compose(win_rect);
 }
 
 void 

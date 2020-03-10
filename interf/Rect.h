@@ -188,6 +188,20 @@ public:
   }
 
   void
+  moveHoriz (int x) noexcept
+  {
+    topLeft.x += x;
+    botRight.x += x;
+  }
+  
+  void
+  moveVertic (int y) noexcept
+  {
+    topLeft.y += y;
+    botRight.y += y;
+  }
+
+  void
   setRect (int x, int y, int width, int height) noexcept
   {
     topLeft.x = x;

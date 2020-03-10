@@ -41,6 +41,11 @@ ColorCodeGlyph::ClassName() const
     return "ColorCodeGlyph";
 }
 
+void
+ColorCodeGlyph::compose(const Rect& win_rect)
+{
+    rect = win_rect;
+}
 
 void
 ColorCodeGlyph::drawSelf(Window *w) const 

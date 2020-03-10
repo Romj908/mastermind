@@ -37,21 +37,43 @@ const int EmptyColorGlyphSide = 10;
 // minimal horiz distance between two colors
 const int ColorHorizSpace = 10; 
 
-// minimal distances between colors and ColorCode's surrounding rectangle 
-const int ColorVerticMargin = 5;  
-const int ColorHorizMargin = 5;  
+// distances between colors and ColorCode's surrounding rectangle 
+const int ColorVerticMargin = 10;  
+const int ColorHorizMargin = 10;  
+
+// distances between color codes and Area's surrounding rectangle 
+const int ColorCodeAreaVerticMargin = 10;  
+const int ColorCodeAreaHorizMargin = 10; 
+
+// Vertical distance between two colors codes
+const int ColorCodeVerticSpace = 10; 
 
 // Length of a Indicator element's side.
 const int IndicatorGlyphSide = 20;
 // Length of an empty element's side.
 const int EmptyIndicatorGlyphSide = 6;
 
-// minimal horiz distance between two colors
+// horiz distance between two indicators
 const int IndicatorHorizSpace = 10; 
 
-// minimal distances between Indicators and verdict's surrounding rectangle 
+// distances between Indicators and verdict's surrounding rectangle 
 const int IndicatorVerticMargin = 5;  
 const int IndicatorHorizMargin = 5;  
+
+// distances between colors and ColorCode's surrounding rectangle 
+const int VerdictVerticMargin = 10;  
+const int VerdictHorizMargin = 10;  
+
+// Vertical distance between two colors codes
+const int VerdictVerticSpace = 10; 
+
+// distances between colors and ColorCode's surrounding rectangle 
+const int VerdictAreaVerticMargin = 10;  
+const int VerdictAreaHorizMargin = 10;  
+
+const int BoardGameVerticMargin = 10;  
+const int BoardGameHorizMargin = 10;  
+
 
 /*PVBoardGameGlyph*/
 PVBoardGameGlyph::PVBoardGameGlyph()
@@ -65,6 +87,18 @@ PVBoardGameGlyph::~PVBoardGameGlyph()
 void
 PVBoardGameGlyph::compose(const Rect& win_rect) 
 {
+    rect = win_rect;
+    
+    Rect temp_rect = win_rect;
+    
+    // area of the color codes 
+    Glyph *ccode_area = getChild(BoardGameGlyph::colorCodesArea);
+    
+    temp_rect.moveVertic(BoardGameVerticMargin);
+    temp_rect.moveHoriz(BoardGameHorizMargin);
+    
+    ccode_area->compose(temp_rect);
+    
     
 }
 
@@ -100,7 +134,23 @@ PVColorCodeGlyph::~PVColorCodeGlyph()
 void
 PVColorCodeGlyph::compose(const Rect& win_rect) 
 {
+    Rect ccode_rect = win_rect; 
     
+    Rect temp_rect = win_rect; // a copy
+    
+    temp_rect.moveVertic(ColorVerticMargin/2);
+    temp_rect.moveHoriz(ColorHorizMargin/2);
+    
+    for (int i = 0; i< children.size(); i++)
+    {
+        Glyph * p_child = children[i].get(); // a ColorGlyph
+        p_child->compose(temp_rect);
+        temp_rect.moveHoriz(p_child->rect.width()+ColorHorizSpace);
+    }
+    
+    ccode_rect.setHeight(temp_rect.height() - ColorHorizSpace + ColorHorizMargin/2);
+    ccode_rect.setRight(temp_rect.right() + ColorHorizMargin/2);
+    rect = ccode_rect;
 }
 
 void 
@@ -125,7 +175,8 @@ PVColorGlyph::~PVColorGlyph()
 void
 PVColorGlyph::compose(const Rect& win_rect)
 {
-    
+    rect.setTop(win_rect.top());
+    rect.setLeft(win_rect.left());
 }
 
 
@@ -141,6 +192,45 @@ PVColorGlyph::draw(Window *w ) const
     }
 }
 
+PVColorCodeAreaGlyph::PVColorCodeAreaGlyph(std::size_t nb_turns)
+: ColorCodeAreaGlyph{nb_turns}
+{
+    
+}
+
+PVColorCodeAreaGlyph::~PVColorCodeAreaGlyph()
+{
+    
+}
+
+void
+PVColorCodeAreaGlyph::compose(const Rect& win_rect) 
+{
+    Rect area_rect = win_rect; 
+    
+    Rect temp_rect = win_rect; // a copy
+    
+    temp_rect.moveVertic(ColorVerticMargin);
+    temp_rect.moveHoriz(ColorHorizMargin);
+    
+    for (int i = 0; i< children.size(); i++)
+    {
+        Glyph * p_child = children[i].get(); // a ColorCodeGlyph.
+        p_child->compose(temp_rect);
+        temp_rect.moveVertic(p_child->rect.height()+ColorCodeVerticSpace);
+    }
+    
+    area_rect.setHeight(area_rect.top() - temp_rect.bottom() - ColorCodeVerticSpace + ColorCodeAreaVerticMargin);
+    area_rect.setRight(temp_rect.right() - temp_rect.left() + ColorCodeAreaHorizMargin);
+    
+    rect = area_rect;
+}
+
+void
+PVColorCodeAreaGlyph::drawSelf(Window *w) const 
+{
+
+}
 
 
 /* PVVerdictGlyph */
@@ -156,7 +246,24 @@ PVVerdictGlyph::~PVVerdictGlyph()
 void
 PVVerdictGlyph::compose(const Rect& win_rect) 
 {
+    Rect verdict_rect = win_rect; 
     
+    Rect temp_rect = win_rect; // a copy
+    
+    temp_rect.moveVertic(VerdictVerticMargin/2);
+    temp_rect.moveHoriz(VerdictHorizMargin/2);
+    
+    for (int i = 0; i< children.size(); i++)
+    {
+        Glyph * p_child = children[i].get(); // an IndicatorGlyph
+        p_child->compose(temp_rect);
+        temp_rect.moveHoriz(p_child->rect.width()+IndicatorHorizSpace);
+    }
+    
+    verdict_rect.setHeight(temp_rect.height() - IndicatorHorizSpace + VerdictHorizMargin/2);
+    verdict_rect.setRight(temp_rect.right() + VerdictHorizMargin/2);
+    rect = verdict_rect;
+   
 }
 
 void 
@@ -179,7 +286,8 @@ PVIndicatorGlyph::~PVIndicatorGlyph()
 void
 PVIndicatorGlyph::compose(const Rect& win_rect)
 {
-    
+    rect.setTop(win_rect.top());
+    rect.setLeft(win_rect.left());
 }
 
 void 
@@ -208,6 +316,24 @@ PVVerdictsAreaGlyph::~PVVerdictsAreaGlyph()
 void
 PVVerdictsAreaGlyph::compose(const Rect& win_rect) 
 {
+    Rect area_rect = win_rect; 
+    
+    Rect temp_rect = win_rect; // a copy
+    
+    temp_rect.moveVertic(VerdictVerticMargin);
+    temp_rect.moveHoriz(VerdictHorizMargin);
+    
+    for (int i = 0; i< children.size(); i++)
+    {
+        Glyph * p_child = children[i].get(); // a VerdictGlyph.
+        p_child->compose(temp_rect);
+        temp_rect.moveVertic(p_child->rect.height()+VerdictVerticSpace);
+    }
+    
+    area_rect.setHeight(area_rect.top() - temp_rect.bottom() - VerdictVerticSpace + ColorVerticMargin);
+    area_rect.setRight(temp_rect.right() - temp_rect.left() + ColorHorizMargin);
+    
+    rect = area_rect;
     
 }
 
@@ -217,28 +343,6 @@ PVVerdictsAreaGlyph::drawSelf(Window *w) const
 
 }
 
-PVColorCodeAreaGlyph::PVColorCodeAreaGlyph(std::size_t nb_turns)
-: ColorCodeAreaGlyph{nb_turns}
-{
-    
-}
-
-PVColorCodeAreaGlyph::~PVColorCodeAreaGlyph()
-{
-    
-}
-
-void
-PVColorCodeAreaGlyph::compose(const Rect& win_rect) 
-{
-    
-}
-
-void
-PVColorCodeAreaGlyph::drawSelf(Window *w) const 
-{
-
-}
 
 PVColorPanelAreaGlyph::PVColorPanelAreaGlyph(std::size_t nb_colors)
 : ColorPanelAreaGlyph{nb_colors}

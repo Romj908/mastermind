@@ -36,5 +36,4 @@ ColorCodeAreaGlyph::~ColorCodeAreaGlyph()
 {
 }
 
-
 } // MMG

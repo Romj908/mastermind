@@ -47,6 +47,10 @@ public:
     {
     }
 
+    // derivate his own rectangle from the enclosing rectangle given as parameter
+    virtual void
+    compose(const Rect& win_rect) override; 
+    
     virtual void
     drawSelf(Window *w) const override;
 
